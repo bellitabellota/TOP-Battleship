@@ -7,6 +7,27 @@ export class DOMController {
     this.currentOpponentNameElem = document.querySelector(".js-opponent-name");
     }
 
+    addEventListenersToOpponentBoard() {
+      const opponentFieldElements = this.domBoardOpponentPlayer.querySelectorAll(".js-field");
+
+      opponentFieldElements.forEach((field) => {
+        field.addEventListener("click", () => {
+          const coordinate = this.getClickedCoordinate(field);
+
+          this.game.currentOpponent().board.receiveAttack(coordinate);
+
+          this.displayCurrentOpponentBoard(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
+        });
+      });
+    }
+
+    getClickedCoordinate(field) {
+      const xCoordinate = Number(field.dataset.index.split("")[0]);
+      const yCoordinate = Number(field.dataset.index.split("")[1]);
+      console.log([xCoordinate, yCoordinate]);
+      return [xCoordinate, yCoordinate];
+    }
+
     displayCurrentOpponentBoard() {
       const opponent = this.game.currentOpponent();
       const currentOpponentBoard = opponent.board.current;
@@ -40,14 +61,15 @@ export class DOMController {
     })
   }
 
-  createField = (player, field, rowIndex, fieldIndex) => {
+  createField (player, field, rowIndex, fieldIndex){
     const divElem = document.createElement("div");
 
     if (field !== null) {
       divElem.innerHTML = this.getFieldContent(field, player);
     }        
 
-    divElem.classList=`field`;
+    divElem.classList=`field js-field`;
+    divElem.dataset.index=`${rowIndex}${fieldIndex}`;
     return divElem;
   };
 
@@ -56,6 +78,8 @@ export class DOMController {
       return field;
     } else if(player === this.game.currentPlayer) {
       return `\u{1F6A2}`;
+    } else if (field === "h") {
+      return `\u{1F3CA}`;
     } else {
       return "";
     }      
