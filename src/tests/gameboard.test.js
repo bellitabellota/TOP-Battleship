@@ -60,6 +60,7 @@ describe("gameboard.receiveAttack(coordinate)", () => {
     gameboard.receiveAttack([0, 2]);
 
     expect(mockShip.hit).toHaveBeenCalledTimes(1);
+    expect(gameboard.current[0][2]).toBe("h");
   });
 
   test("records missedShot in the event of failure", () => {
