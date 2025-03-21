@@ -11,5 +11,7 @@ const dom = new DOMController(game);
 dom.displayPlayerNames();
 dom.displayCurrentPlayerBoard();
 dom.displayCurrentOpponentBoard();
+
+dom.displayMoveRequest();
 dom.addEventListenersToOpponentBoard();
 

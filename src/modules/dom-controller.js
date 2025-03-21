@@ -5,6 +5,13 @@ export class DOMController {
     this.domBoardOpponentPlayer = document.querySelector(".js-opponent-board");
     this.currentPlayerNameElem = document.querySelector(".js-current-player-name");
     this.currentOpponentNameElem = document.querySelector(".js-opponent-name");
+    this.playerInfoElem = document.querySelector(".js-player-information");
+    }
+
+    displayMoveRequest() {
+      const playerName = this.game.currentPlayer.name;
+      console.log(playerName);
+      this.playerInfoElem.innerHTML = `${playerName}, it is time to attack your enemy. Click on a field of your choice.`;
     }
 
     addEventListenersToOpponentBoard() {
