@@ -57,4 +57,9 @@ export class Game {
     this.players[1].board.placeShip(coordinatesSubmarine, submarine);
     this.players[1].board.placeShip(coordinatesPatrolBoat, patrolBoat);
   }
+
+  switchCurrentPlayer() {
+    this.currentPlayer = this.currentPlayer === this.players[0] ? this.players[1] : this.players[0];
+  }
+
 }

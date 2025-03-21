@@ -58,3 +58,16 @@ describe("currentOpponent()", () => {
 
   expect(game.currentOpponent()).toBe("Player2");
 })
+
+describe("switchCurrentPlayer()", () => {
+  const game = new Game();
+  game.players = ["Player1", "Player2"];
+  game.currentPlayer = game.players[0];
+
+  test ("updates game.currentPlayer", () => {
+    game.switchCurrentPlayer();
+    expect(game.currentPlayer).toBe("Player2");
+    game.switchCurrentPlayer();
+    expect(game.currentPlayer).toBe("Player1");
+  }) 
+})

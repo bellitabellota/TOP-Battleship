@@ -23,6 +23,8 @@ export class DOMController {
 
           this.game.currentOpponent().board.receiveAttack(coordinate);
 
+          this.game.switchCurrentPlayer();
+
           this.displayCurrentOpponentBoard(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
         });
       });
