@@ -18,7 +18,7 @@ export class DOMController {
         this.domBoardOpponentPlayer.appendChild(divRowElem);
   
         row.forEach((field, fieldIndex) => {
-          const divElem = this.createField(field, rowIndex, fieldIndex);
+          const divElem = this.createField(opponent, field, rowIndex, fieldIndex);
           divRowElem.appendChild(divElem);
         });
       })
@@ -34,17 +34,32 @@ export class DOMController {
       this.domBoardCurrentPlayer.appendChild(divRowElem);
 
       row.forEach((field, fieldIndex) => {
-        const divElem = this.createField(field, rowIndex, fieldIndex);
+        const divElem = this.createField(this.game.currentPlayer, field, rowIndex, fieldIndex);
         divRowElem.appendChild(divElem);
       });
     })
   }
 
-  createField = (field, rowIndex, fieldIndex) => {
-    const divElem = document.createElement("div");        
+  createField = (player, field, rowIndex, fieldIndex) => {
+    const divElem = document.createElement("div");
+
+    if (field !== null) {
+      divElem.innerHTML = this.getFieldContent(field, player);
+    }        
+
     divElem.classList=`field`;
     return divElem;
   };
+
+  getFieldContent(field, player){
+    if (field === "m") {
+      return field;
+    } else if(player === this.game.currentPlayer) {
+      return `\u{1F6A2}`;
+    } else {
+      return "";
+    }      
+  }
 
   displayPlayerNames() {
     this.currentPlayerNameElem.innerHTML = this.game.currentPlayer.name;
