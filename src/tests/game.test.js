@@ -35,3 +35,18 @@ describe("initializePlayers()", () => {
     expect(game.players).toEqual([{ name: "Player1" }, { name: "Computer" }]);
   });
 });
+
+describe("setInitialCurrentPlayer", () => {
+  const game = new Game();
+  game.players = ["Player1", "Player2"];
+
+  test("sets currentPlayer to the player at the given index", () => {
+    expect(game.currentPlayer).toBeUndefined();
+
+    game.setInitialCurrentPlayer(0);
+    expect(game.currentPlayer).toBe("Player1");
+
+    game.setInitialCurrentPlayer(1);
+    expect(game.currentPlayer).toBe("Player2");
+  });
+});

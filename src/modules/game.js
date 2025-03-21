@@ -3,6 +3,7 @@ import { HumanPlayer, ComputerPlayer } from "./player.js";
 export class Game {
   constructor() {
     this.players = [];
+    this.currentPlayer;
   }
 
   initializePlayers(player1Name, player2Name) {
@@ -19,5 +20,9 @@ export class Game {
     } else {
       return new HumanPlayer(name);
     }
+  }
+
+  setInitialCurrentPlayer(playerIndex) {
+    this.currentPlayer = this.players[playerIndex];
   }
 }
