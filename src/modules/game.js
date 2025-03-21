@@ -28,7 +28,7 @@ export class Game {
   }
 
   currentOpponent() {
-    return this.currentPlayer = this.players[0] ? this.players[1] : this.players[0];
+    return this.currentPlayer === this.players[0] ? this.players[1] : this.players[0];
   }
 
   /* test method below once it is finally implemented */
