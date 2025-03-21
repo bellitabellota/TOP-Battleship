@@ -25,4 +25,8 @@ export class Game {
   setInitialCurrentPlayer(playerIndex) {
     this.currentPlayer = this.players[playerIndex];
   }
+
+  currentOpponent() {
+    return this.currentPlayer = this.players[0] ? this.players[1] : this.players[0];
+  }
 }

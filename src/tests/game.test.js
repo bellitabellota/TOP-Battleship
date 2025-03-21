@@ -36,7 +36,7 @@ describe("initializePlayers()", () => {
   });
 });
 
-describe("setInitialCurrentPlayer", () => {
+describe("setInitialCurrentPlayer()", () => {
   const game = new Game();
   game.players = ["Player1", "Player2"];
 
@@ -50,3 +50,11 @@ describe("setInitialCurrentPlayer", () => {
     expect(game.currentPlayer).toBe("Player2");
   });
 });
+
+describe("currentOpponent()", () => {
+  const game = new Game();
+  game.players = ["Player1", "Player2"];
+  game.currentPlayer = game.players[0];
+
+  expect(game.currentOpponent()).toBe("Player2");
+})
