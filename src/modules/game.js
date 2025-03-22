@@ -62,4 +62,8 @@ export class Game {
     this.currentPlayer = this.currentPlayer === this.players[0] ? this.players[1] : this.players[0];
   }
 
+  isChoiceValid(coordinate) {
+    return this.currentOpponent().board.current[coordinate[0]][coordinate[1]] === null ? true : false;
+  }
+
 }

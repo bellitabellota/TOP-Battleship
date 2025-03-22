@@ -71,3 +71,29 @@ describe("switchCurrentPlayer()", () => {
     expect(game.currentPlayer).toBe("Player1");
   }) 
 })
+
+describe("isChoiceValid", () => {
+  const game = new Game();
+
+  game.currentOpponent = jest.fn(() => ({
+    board: {
+      current: [
+        [null, "h", null],
+        [null, null, "m"],
+        [null, null, null],
+      ],
+    },
+  }));
+
+  test("returns true when the currentOpponent's board is null at that index", () =>{
+    const coordinate = [1, 1];
+    const returnValue = game.isChoiceValid(coordinate);
+    expect(returnValue).toBe(true);
+  })
+
+  test("returns false when the currentOpponent's board contains a value at that index", () =>{
+    const coordinate = [0, 1];
+    const returnValue = game.isChoiceValid(coordinate);
+    expect(returnValue).toBe(false);
+  })
+})
