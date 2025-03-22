@@ -33,7 +33,13 @@ export class GameController {
     this.domController.displayMoveRequest();
     this.domController.displayCurrentPlayerBoard();
     this.domController.displayCurrentOpponentBoard();
-    const coordinate = await this.domController.addEventListenersToOpponentBoard();
+
+    let coordinate;
+    do {
+      coordinate = await this.domController.addEventListenersToOpponentBoard();
+    }
+    while(!this.game.isChoiceValid(coordinate));
+    
     this.game.currentOpponent().board.receiveAttack(coordinate);
 
     this.domController.displayCurrentOpponentBoard(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
