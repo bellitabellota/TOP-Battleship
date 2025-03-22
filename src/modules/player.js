@@ -9,4 +9,11 @@ export class Player {
 
 export class HumanPlayer extends Player {}
 
-export class ComputerPlayer extends Player {}
+export class ComputerPlayer extends Player {
+  getCoordinateChoice() {
+    const xCoordinate = Math.floor(Math.random() * 10);
+    const yCoordinate = Math.floor(Math.random() * 10);
+
+    return [xCoordinate, yCoordinate];
+  }
+}

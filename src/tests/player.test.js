@@ -35,7 +35,26 @@ describe("ComputerPlayer", () => {
   });
 
   test("inherits from Player", () => {
-    const computerPlayer = new ComputerPlayer("Human Test Player");
+    const computerPlayer = new ComputerPlayer("Computer Test Player");
     expect(computerPlayer).toBeInstanceOf(Player);
   });
 });
+
+describe("computerPlayer.getCoordinateChoice", () => {
+  test("should return an array of integers between 0 and 9", () => {
+    const computerPlayer = new ComputerPlayer("Computer Test Player");
+    for (let i = 0; i < 1000; i++) {
+      const returnValue = computerPlayer.getCoordinateChoice();
+      const xCoordinate = returnValue[0];
+      const yCoordinate = returnValue[1];
+
+      expect(Array.isArray(returnValue)).toBe(true);
+      expect(Number.isInteger(xCoordinate)).toBe(true);
+      expect(Number.isInteger(yCoordinate)).toBe(true);
+      expect(xCoordinate).toBeGreaterThanOrEqual(0);
+      expect(xCoordinate).toBeLessThanOrEqual(9);
+      expect(yCoordinate).toBeGreaterThanOrEqual(0);
+      expect(yCoordinate).toBeLessThanOrEqual(9);
+    }
+  })
+})
