@@ -47,17 +47,11 @@ export class Game {
     const coordinatesSubmarine = [[7, 3], [7, 4], [7, 5]];
     const coordinatesPatrolBoat = [[9, 4], [9, 5]];
 
-    this.players[0].board.placeShip(coordinatesCarrier, carrier);
-    this.players[0].board.placeShip(coordinatesBattleShip, battleship);
-    this.players[0].board.placeShip(coordinatesDestroyer, destroyer);
-    this.players[0].board.placeShip(coordinatesSubmarine, submarine);
-    this.players[0].board.placeShip(coordinatesPatrolBoat, patrolBoat);
-
-    this.players[1].board.placeShip(coordinatesCarrier, carrier);
-    this.players[1].board.placeShip(coordinatesBattleShip, battleship);
-    this.players[1].board.placeShip(coordinatesDestroyer, destroyer);
-    this.players[1].board.placeShip(coordinatesSubmarine, submarine);
-    this.players[1].board.placeShip(coordinatesPatrolBoat, patrolBoat);
+    this.currentPlayer.board.placeShip(coordinatesCarrier, carrier);
+    this.currentPlayer.board.placeShip(coordinatesBattleShip, battleship);
+    this.currentPlayer.board.placeShip(coordinatesDestroyer, destroyer);
+    this.currentPlayer.board.placeShip(coordinatesSubmarine, submarine);
+    this.currentPlayer.board.placeShip(coordinatesPatrolBoat, patrolBoat);
   }
 
   switchCurrentPlayer() {
