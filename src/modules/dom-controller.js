@@ -10,7 +10,6 @@ export class DOMController {
 
     displayMoveRequest() {
       const playerName = this.game.currentPlayer.name;
-      console.log(playerName);
       this.playerInfoElem.innerHTML = `${playerName}, it is time to attack your enemy. Click on a field of your choice.`;
     }
 
@@ -23,9 +22,9 @@ export class DOMController {
 
           this.game.currentOpponent().board.receiveAttack(coordinate);
 
-          this.game.switchCurrentPlayer();
-
           this.displayCurrentOpponentBoard(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
+
+          this.game.switchCurrentPlayer();
         });
       });
     }
