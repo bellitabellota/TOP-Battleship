@@ -18,10 +18,10 @@ export class DOMController {
       }  
     }
 
-    addEventListenersToOpponentBoard() {
+    addEventListenersToOpponentBoard() {  
       return new Promise((resolve) => {
         const opponentFieldElements = this.domBoardOpponentPlayer.querySelectorAll(".js-field");
-
+        
         opponentFieldElements.forEach((field) => {
           field.addEventListener("click", () => {
             resolve(this.getClickedCoordinate(field));

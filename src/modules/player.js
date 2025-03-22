@@ -7,7 +7,16 @@ export class Player {
   }
 }
 
-export class HumanPlayer extends Player {}
+export class HumanPlayer extends Player {
+  getCoordinateChoice(cb) {
+    return new Promise(async (resolve) => {
+      
+      const coordinate = await cb();
+      console.log(coordinate);
+      resolve(coordinate);
+    }); 
+  }
+}
 
 export class ComputerPlayer extends Player {
   getCoordinateChoice() {

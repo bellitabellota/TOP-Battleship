@@ -3,9 +3,11 @@ export class GameController {
     this.game = game;
     this.domController = domController;
     this.initializeGame();
+    
   }
 
   initializeGame() {
+    
     this.game.initializePlayers("Player1", "Computer");
     this.domController.displayPlayerNames();
     this.domController.displayCurrentPlayerBoard();
@@ -24,7 +26,6 @@ export class GameController {
     this.domController.displayCurrentPlayerBoard();
 
     this.game.switchCurrentPlayer();
-
     this.playRound();  
   }
 
@@ -33,10 +34,10 @@ export class GameController {
     this.domController.displayMoveRequest();
     this.domController.displayCurrentPlayerBoard();
     this.domController.displayCurrentOpponentBoard();
-
     let coordinate;
     do {
-      coordinate = await this.domController.addEventListenersToOpponentBoard();
+      const handleBoardClick = 
+      coordinate = await this.game.currentPlayer.getCoordinateChoice(this.domController.addEventListenersToOpponentBoard.bind(this.domController));
     }
     while(!this.game.isChoiceValid(coordinate));
     
