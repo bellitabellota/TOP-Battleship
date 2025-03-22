@@ -14,29 +14,14 @@ export class DOMController {
     }
 
     addEventListenersToOpponentBoard() {
-      const opponentFieldElements = this.domBoardOpponentPlayer.querySelectorAll(".js-field");
+      return new Promise((resolve) => {
+        const opponentFieldElements = this.domBoardOpponentPlayer.querySelectorAll(".js-field");
 
-      opponentFieldElements.forEach((field) => {
-        field.addEventListener("click", () => {
-          const coordinate = this.getClickedCoordinate(field);
-          
-          this.game.currentOpponent().board.receiveAttack(coordinate);
-
-          this.displayCurrentOpponentBoard(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
-
-          this.game.switchCurrentPlayer();
-
-          /* make ComputerMove */
-          let coordinateComputer;
-
-          do {
-            coordinateComputer = this.game.currentPlayer.getCoordinateChoice();
-          } 
-          while(!this.game.isChoiceValid(coordinateComputer));
-
-          this.game.currentOpponent().board.receiveAttack(coordinateComputer);
-          
-        });
+        opponentFieldElements.forEach((field) => {
+          field.addEventListener("click", () => {
+            resolve(this.getClickedCoordinate(field));
+          });
+        })
       });
     }
 
