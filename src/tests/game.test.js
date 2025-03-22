@@ -92,8 +92,12 @@ describe("isChoiceValid", () => {
   })
 
   test("returns false when the currentOpponent's board contains a value at that index", () =>{
-    const coordinate = [0, 1];
-    const returnValue = game.isChoiceValid(coordinate);
+    const coordinateHit = [0, 1];
+    const returnValue = game.isChoiceValid(coordinateHit);
     expect(returnValue).toBe(false);
+
+    const coordinateMissedShot = [1, 2];
+    const returnValue2 = game.isChoiceValid(coordinateMissedShot);
+    expect(returnValue2).toBe(false);
   })
 })

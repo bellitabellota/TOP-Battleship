@@ -63,7 +63,11 @@ export class Game {
   }
 
   isChoiceValid(coordinate) {
-    return this.currentOpponent().board.current[coordinate[0]][coordinate[1]] === null ? true : false;
+    const valueOnOpponentBoard = this.currentOpponent().board.current[coordinate[0]][coordinate[1]];
+    if (valueOnOpponentBoard === "h" || valueOnOpponentBoard === "m") {
+      return false;
+    } else {
+      return true;
+    }
   }
-
 }
