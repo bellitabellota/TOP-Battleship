@@ -11,9 +11,13 @@ export class HumanPlayer extends Player {}
 
 export class ComputerPlayer extends Player {
   getCoordinateChoice() {
-    const xCoordinate = Math.floor(Math.random() * 10);
-    const yCoordinate = Math.floor(Math.random() * 10);
-
-    return [xCoordinate, yCoordinate];
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const xCoordinate = Math.floor(Math.random() * 10);
+        const yCoordinate = Math.floor(Math.random() * 10);
+  
+      resolve([xCoordinate, yCoordinate]);
+      }, "2000");
+    }); 
   }
 }

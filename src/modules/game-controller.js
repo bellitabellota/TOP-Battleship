@@ -54,7 +54,7 @@ export class GameController {
     let coordinateComputer;
 
     do {
-      coordinateComputer = this.game.currentPlayer.getCoordinateChoice();
+      coordinateComputer = await this.game.currentPlayer.getCoordinateChoice();
     } 
     while(!this.game.isChoiceValid(coordinateComputer));
 
