@@ -13,6 +13,8 @@ export class Game {
 
     const player2 = this.initializePlayer(player2Name);
     this.players.push(player2);
+
+    this.setInitialCurrentPlayer(0);
   }
 
   initializePlayer(name) {
