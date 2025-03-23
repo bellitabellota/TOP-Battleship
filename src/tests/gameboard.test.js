@@ -71,7 +71,7 @@ describe("gameboard.receiveAttack(coordinate)", () => {
   });
 });
 
-describe("gameboard.allShipsSunk", () => {
+describe("gameboard.allShipsSunk()", () => {
   let sunkenMockShip;
   let sunkenMockShip2;
   let gameboard;

@@ -30,6 +30,25 @@ describe("HumanPlayer", () => {
   });
 });
 
+describe("humanPlayer.getCoordinateChoice()", () => {
+  test("should return an array of integers between 0 and 9", async() => {
+    const humanPlayer = new HumanPlayer("Human Test Player");
+    const mockCb = jest.fn().mockResolvedValue([2, 2]);
+
+    const returnValue = await humanPlayer.getCoordinateChoice(mockCb);
+    const xCoordinate = returnValue[0];
+    const yCoordinate = returnValue[1];
+    
+    expect(Array.isArray(returnValue)).toBe(true);
+    expect(Number.isInteger(xCoordinate)).toBe(true);
+    expect(Number.isInteger(yCoordinate)).toBe(true);
+    expect(xCoordinate).toBeGreaterThanOrEqual(0);
+    expect(xCoordinate).toBeLessThanOrEqual(9);
+    expect(yCoordinate).toBeGreaterThanOrEqual(0);
+    expect(yCoordinate).toBeLessThanOrEqual(9);
+  })
+})
+
 /* ComputerPlayer tests */
 
 describe("ComputerPlayer", () => {
@@ -51,7 +70,7 @@ describe("computerPlayer.getCoordinateChoice()", () => {
   jest.useFakeTimers();
   test("should return an array of integers between 0 and 9", async() => {
     const computerPlayer = new ComputerPlayer("Computer Test Player");
-    
+
     for (let i = 0; i < 100; i++) {
       const promise = computerPlayer.getCoordinateChoice();
       jest.runAllTimers();
@@ -59,6 +78,7 @@ describe("computerPlayer.getCoordinateChoice()", () => {
       const returnValue = await promise;
       const xCoordinate = returnValue[0];
       const yCoordinate = returnValue[1];
+      
 
       expect(Array.isArray(returnValue)).toBe(true);
       expect(Number.isInteger(xCoordinate)).toBe(true);
