@@ -25,12 +25,14 @@ export class GameController {
 
     await this.game.switchCurrentPlayer();
 
-    this.gameLoop(!this.game.isOver());
+    this.gameLoop();
   }
 
-  async gameLoop(gameOver) {
-    while (gameOver) {
+  async gameLoop() {
+    let gameOver = this.game.isOver();
+    while (!gameOver) {
       await this.playRound();
+      gameOver = this.game.isOver();
     }
   }
 
