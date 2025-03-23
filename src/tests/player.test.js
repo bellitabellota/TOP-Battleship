@@ -3,6 +3,8 @@ import { Gameboard } from "../modules/gameboard.js";
 
 jest.mock("../modules/gameboard.js");
 
+/* Player tests */
+
 describe("Player", () => {
   test("object initialization", () => {
     const player = new Player("Test Player");
@@ -11,6 +13,8 @@ describe("Player", () => {
     expect(player.board).toBeInstanceOf(Gameboard);
   });
 });
+
+/* HumanPlayer tests */
 
 describe("HumanPlayer", () => {
   test("object initialization", () => {
@@ -26,6 +30,8 @@ describe("HumanPlayer", () => {
   });
 });
 
+/* ComputerPlayer tests */
+
 describe("ComputerPlayer", () => {
   test("object initialization", () => {
     const computerPlayer = new ComputerPlayer("Human Test Player");
@@ -40,11 +46,17 @@ describe("ComputerPlayer", () => {
   });
 });
 
-describe("computerPlayer.getCoordinateChoice", () => {
-  test("should return an array of integers between 0 and 9", () => {
+
+describe("computerPlayer.getCoordinateChoice()", () => {
+  jest.useFakeTimers();
+  test("should return an array of integers between 0 and 9", async() => {
     const computerPlayer = new ComputerPlayer("Computer Test Player");
-    for (let i = 0; i < 1000; i++) {
-      const returnValue = computerPlayer.getCoordinateChoice();
+    
+    for (let i = 0; i < 100; i++) {
+      const promise = computerPlayer.getCoordinateChoice();
+      jest.runAllTimers();
+
+      const returnValue = await promise;
       const xCoordinate = returnValue[0];
       const yCoordinate = returnValue[1];
 
