@@ -106,3 +106,28 @@ describe("game.isChoiceValid", () => {
     expect(returnValue2).toBe(false);
   })
 })
+
+describe("game.isOver()", () => {
+  test("returns true if allShipsSunk is true", () => {
+    const game = new Game();
+
+    game.currentPlayer = {
+      board: {
+        allShipsSunk: jest.fn().mockReturnValue(true),
+      },
+    };
+
+    expect(game.isOver()).toBe(true);
+  });
+
+  test("returns false if allShipsSunk is false", () => {
+    const game = new Game();
+    game.currentPlayer = {
+      board: {
+        allShipsSunk: jest.fn().mockReturnValue(false),
+      },
+    };
+
+    expect(game.isOver()).toBe(false);
+  });
+})

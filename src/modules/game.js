@@ -67,8 +67,7 @@ export class Game {
     }
   }
 
-  /* finish and test the method below */
   isOver() {
-    return false;
+    return this.currentPlayer.board.allShipsSunk();
   }
 }
