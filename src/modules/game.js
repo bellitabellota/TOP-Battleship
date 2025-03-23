@@ -42,7 +42,7 @@ export class Game {
     const submarine = new Ship(3);
     const patrolBoat = new Ship(2);
 
-    this.getRandomCoordinatesForShip();
+    this.getRandomCoordinatesForShip(carrier);
 
     const coordinatesCarrier = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]];
     const coordinatesBattleShip = [[2, 2], [2, 3], [2, 4], [2, 5]];
@@ -57,9 +57,21 @@ export class Game {
     this.currentPlayer.board.placeShip(coordinatesPatrolBoat, patrolBoat);
   }
 
-  getRandomCoordinatesForShip() {
+  getRandomCoordinatesForShip(ship) {
     const shipOrientation = this.getShipOrientation(getRandomInteger());
     const startCoordinate = this.getStartCoordinate(getRandomInteger(), getRandomInteger());
+    const coordinatesShip = this.calculateCoordinatesShip(startCoordinate, ship.length, shipOrientation);
+  }
+
+  calculateCoordinatesShip(start, length, shipOrientation) {
+    const coordinates = [start.slice()];
+  
+    for (let i = 1; i < length; i++) {
+      const newCoordinate = start.map((value, index) => index === shipOrientation ? value + i : value );
+
+      coordinates.push(newCoordinate);
+    }
+    return coordinates;
   }
 
   getStartCoordinate(randomNumber1, randomNumber2) {

@@ -161,3 +161,17 @@ describe("game.getStartCoordinate()", () => {
     expect(typeof returnValue[1]).toBe("number");
   })
 })
+
+describe("game.calculateCoordinatesShip()", () => {
+  const game = new Game();
+  test("should calculate ship coordinates correctly for horizontal orientation", () => {
+    const result = game.calculateCoordinatesShip([0, 0], 4, 1);
+
+    expect(result).toEqual([[0, 0], [0, 1], [0, 2], [0, 3]]);
+  });
+
+  test("should calculate ship coordinates correctly for vertical orientation", () => {
+    const result = game.calculateCoordinatesShip([1, 1], 3, 0);
+    expect(result).toEqual([[1, 1], [2, 1], [3, 1]]);
+  });
+})
