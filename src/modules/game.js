@@ -57,10 +57,13 @@ export class Game {
   }
 
   getRandomValidCoordinates(ship, currentBoard) {
+    let randomCoordinates;
 
-    const randomCoordinates = this.getRandomCoordinatesForShip(carrier);
-    this.coordinatesValid(randomCoordinates, currentBoard)
+    do {
+      randomCoordinates = this.getRandomCoordinatesForShip(ship);
+    } while (!this.coordinatesValid(randomCoordinates, currentBoard));
 
+    return randomCoordinates;
   }
 
   coordinatesValid(randomCoordinates, currentBoard) {

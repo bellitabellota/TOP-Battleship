@@ -272,3 +272,19 @@ describe("game.coordinatesValid(randomCoordinates, currentBoard)", () => {
     expect(result).toBe(false);
   });
 });
+
+describe("game.getRandomValidCoordinates(ship, currentBoard)", () => {
+  const game = new Game();
+
+  test("returns valid coordinates for a given ship and board", () => {
+    const validCoordinates = [[0, 0], [0, 1], [0, 2]];
+    jest.spyOn(game, "getRandomCoordinatesForShip").mockReturnValue(validCoordinates);
+    jest.spyOn(game, "coordinatesValid").mockReturnValueOnce(false).mockReturnValueOnce(true);
+    
+    const returnValue = game.getRandomValidCoordinates("ship", "board");
+
+    expect(returnValue).toEqual(validCoordinates);
+
+    expect(game.coordinatesValid).toHaveBeenCalledTimes(2);
+  });
+});
