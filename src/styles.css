@@ -46,6 +46,10 @@ body {
   font-size: 1.75vw;
 }
 
+.opponent-field:hover {
+  background-color: rgb(97, 97, 97);
+}
+
 .row {
   display: flex;
 }

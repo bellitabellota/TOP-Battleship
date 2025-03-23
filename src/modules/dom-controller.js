@@ -23,6 +23,7 @@ export class DOMController {
         const opponentFieldElements = this.domBoardOpponentPlayer.querySelectorAll(".js-field");
         
         opponentFieldElements.forEach((field) => {
+          field.classList.add("opponent-field");
           field.addEventListener("click", () => {
             resolve(this.getClickedCoordinate(field));
           });
