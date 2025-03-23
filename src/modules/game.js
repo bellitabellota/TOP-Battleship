@@ -61,6 +61,16 @@ export class Game {
     const shipOrientation = this.getShipOrientation(getRandomInteger());
     const startCoordinate = this.getStartCoordinate(getRandomInteger(), getRandomInteger());
     const coordinatesShip = this.calculateCoordinatesShip(startCoordinate, ship.length, shipOrientation);
+    this.doCoordinatesExist(coordinatesShip);
+  }
+
+  doCoordinatesExist(coordinatesShip) {
+    for (let coordinate of coordinatesShip) {
+      if (!coordinate.every(value => value >= 0 && value <= 9)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   calculateCoordinatesShip(start, length, shipOrientation) {

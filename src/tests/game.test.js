@@ -175,3 +175,20 @@ describe("game.calculateCoordinatesShip()", () => {
     expect(result).toEqual([[1, 1], [2, 1], [3, 1]]);
   });
 })
+
+describe("game.doCoordinatesExist(coordinates)", () => {
+  const game = new Game();
+
+  test("should return true for valid coordinates", () => {
+    const validCoordinates = [[0, 1], [5, 9], [3, 7]];
+    expect(game.doCoordinatesExist(validCoordinates)).toBe(true);
+  });
+
+  test("should return false for coordinates greater than 9", () => {
+    const invalidCoordinates = [[10, 5], [11, 5]];
+    expect(game.doCoordinatesExist(invalidCoordinates)).toBe(false);
+
+    const invalidCoordinates2 = [[2, 9], [2, 10]];
+    expect(game.doCoordinatesExist(invalidCoordinates2)).toBe(false);
+  });
+});
