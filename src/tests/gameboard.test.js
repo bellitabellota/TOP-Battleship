@@ -56,10 +56,11 @@ describe("gameboard.receiveAttack(coordinate)", () => {
     gameboard.placeShip(coordinates, mockShip);
   });
 
-  test("records damage in the event of success", () => {
+  test("records damage in the event of success on current board and ship", () => {
     gameboard.receiveAttack([0, 2]);
 
     expect(mockShip.hit).toHaveBeenCalledTimes(1);
+    expect(mockShip.isSunk).toHaveBeenCalledTimes(1);
     expect(gameboard.current[0][2]).toBe("h");
   });
 

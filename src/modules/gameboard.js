@@ -31,6 +31,7 @@ export class Gameboard {
 
     if (valueSelectedField instanceof Ship) {
       valueSelectedField.hit();
+      valueSelectedField.isSunk();
       this.current[coordinate[0]][coordinate[1]] = "h";
     } else {
       const missedShot = "m";
