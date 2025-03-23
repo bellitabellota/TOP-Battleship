@@ -58,10 +58,13 @@ export class Game {
   }
 
   getRandomCoordinatesForShip(ship) {
-    const shipOrientation = this.getShipOrientation(getRandomInteger());
-    const startCoordinate = this.getStartCoordinate(getRandomInteger(), getRandomInteger());
-    const coordinatesShip = this.calculateCoordinatesShip(startCoordinate, ship.length, shipOrientation);
-    this.doCoordinatesExist(coordinatesShip);
+    let coordinatesShip;
+    do {
+      const shipOrientation = this.getShipOrientation(getRandomInteger());
+      const startCoordinate = this.getStartCoordinate(getRandomInteger(), getRandomInteger());
+      coordinatesShip = this.calculateCoordinatesShip(startCoordinate, ship.length, shipOrientation);
+    } while (!this.doCoordinatesExist(coordinatesShip));
+    return coordinatesShip;
   }
 
   doCoordinatesExist(coordinatesShip) {

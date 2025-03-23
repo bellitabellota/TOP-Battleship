@@ -192,3 +192,27 @@ describe("game.doCoordinatesExist(coordinates)", () => {
     expect(game.doCoordinatesExist(invalidCoordinates2)).toBe(false);
   });
 });
+
+describe("game.getRandomCoordinatesForShip(ship)", () => {
+  const game = new Game();
+
+  test("should stop the loop when doCoordinatesExist returns true and return the coordinates", () => {
+    const mockShip = { length: 3 };
+    const validCoordinates = [[0, 0], [0, 1], [0, 2]];
+
+    jest.spyOn(game, "getShipOrientation");
+    jest.spyOn(game, "getStartCoordinate");
+    jest.spyOn(game, "calculateCoordinatesShip").mockReturnValueOnce([[10,0]]).mockReturnValueOnce(validCoordinates);
+    jest.spyOn(game, "doCoordinatesExist").mockReturnValueOnce(false).mockReturnValueOnce(true);
+
+    const returnedCoordinates = game.getRandomCoordinatesForShip(mockShip);
+
+
+    expect(returnedCoordinates).toEqual(validCoordinates);
+
+    expect(game.getShipOrientation).toHaveBeenCalledTimes(2);
+    expect(game.getStartCoordinate).toHaveBeenCalledTimes(2);
+    expect(game.calculateCoordinatesShip).toHaveBeenCalledTimes(2);
+    expect(game.doCoordinatesExist).toHaveBeenCalledTimes(2);
+  });
+});
