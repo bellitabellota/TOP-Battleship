@@ -150,3 +150,14 @@ describe("game.getShipOrientation()", () => {
     expect(returnValue).toBe(1);
   });
 })
+
+describe("game.getStartCoordinate()", () => {
+  const game = new Game();
+  test("returns an array with 2 numbers", () => {
+    const returnValue = game.getStartCoordinate(3, 6);
+    expect(Array.isArray(returnValue)).toBe(true);
+    expect(returnValue.length).toBe(2);
+    expect(typeof returnValue[0]).toBe("number");
+    expect(typeof returnValue[1]).toBe("number");
+  })
+})

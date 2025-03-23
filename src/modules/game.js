@@ -59,6 +59,11 @@ export class Game {
 
   getRandomCoordinatesForShip() {
     const shipOrientation = this.getShipOrientation(getRandomInteger());
+    const startCoordinate = this.getStartCoordinate(getRandomInteger(), getRandomInteger());
+  }
+
+  getStartCoordinate(randomNumber1, randomNumber2) {
+    return [randomNumber1, randomNumber2];
   }
 
   getShipOrientation(randomNumber) {
