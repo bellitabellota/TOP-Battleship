@@ -216,3 +216,59 @@ describe("game.getRandomCoordinatesForShip(ship)", () => {
     expect(game.doCoordinatesExist).toHaveBeenCalledTimes(2);
   });
 });
+
+describe("game.filterCoordinatesOnBoard(adjacentCoordinates)", () => {
+  const game = new Game();
+  test("should remove coordinates that are not on the board", () => {
+    const adjacentCoordinates = [[4, 4], [-1, 3], [4, 10], [10, 10], [8, 8], [0, -1]];
+
+    const expectedValidCoordinates = [[4, 4], [8, 8]];
+
+    const validCoordinates = game.filterCoordinatesOnBoard(adjacentCoordinates);
+
+    expect(validCoordinates).toEqual(expectedValidCoordinates);
+  });
+});
+
+describe("game.coordinatesValid(randomCoordinates, currentBoard)", () => {
+  const game = new Game();
+
+  test("should return true if all adjacent fields are null or undefined", () => {
+    const randomCoordinates = [[0, 0], [0, 1]];
+
+    const currentBoard = [[null, null, null, null, null, null, null, null, null, null],
+    [null, undefined, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+  ];
+
+    const result = game.coordinatesValid(randomCoordinates, currentBoard);
+    expect(result).toBe(true);
+  });
+
+  test("should return false if any adjacent field is not null or undefined", () => {
+    const randomCoordinates = [[4, 4], [4, 5]];
+    const currentBoard = [[null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+  ];
+    currentBoard[3][4] = "ship";
+
+    const result = game.coordinatesValid(randomCoordinates, currentBoard);
+
+    expect(result).toBe(false);
+  });
+});

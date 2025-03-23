@@ -42,9 +42,8 @@ export class Game {
     const submarine = new Ship(3);
     const patrolBoat = new Ship(2);
 
-    this.getRandomCoordinatesForShip(carrier);
 
-    const coordinatesCarrier = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]];
+    const coordinatesCarrier = this.getRandomValidCoordinates(carrier, this.currentPlayer.board.current);
     const coordinatesBattleShip = [[2, 2], [2, 3], [2, 4], [2, 5]];
     const coordinatesDestroyer = [[5, 3], [5, 4], [5, 5]];
     const coordinatesSubmarine = [[7, 3], [7, 4], [7, 5]];
@@ -55,6 +54,44 @@ export class Game {
     this.currentPlayer.board.placeShip(coordinatesDestroyer, destroyer);
     this.currentPlayer.board.placeShip(coordinatesSubmarine, submarine);
     this.currentPlayer.board.placeShip(coordinatesPatrolBoat, patrolBoat);
+  }
+
+  getRandomValidCoordinates(ship, currentBoard) {
+
+    const randomCoordinates = this.getRandomCoordinatesForShip(carrier);
+    this.coordinatesValid(randomCoordinates, currentBoard)
+
+  }
+
+  coordinatesValid(randomCoordinates, currentBoard) {
+    for (const [x, y] of randomCoordinates) {
+      const adjacentCoordinates = [
+        [x - 1, y - 1],
+        [x - 1, y],
+        [x - 1, y + 1],
+        [x, y - 1],
+        [x, y + 1],
+        [x + 1, y - 1],
+        [x + 1, y],
+        [x + 1, y + 1]
+      ];
+
+      const validAdjacentCoordinates = this.filterCoordinatesOnBoard(adjacentCoordinates);
+  
+      for (const coordinate of validAdjacentCoordinates) {
+        const fieldValue = currentBoard[coordinate[0]][coordinate[1]];
+        if (fieldValue !== null && fieldValue !== undefined) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  filterCoordinatesOnBoard(adjacentCoordinates) {
+    return adjacentCoordinates.filter(([x, y]) => {
+      return x >= 0 && x < 10 && y >= 0 && y < 10;
+    });
   }
 
   getRandomCoordinatesForShip(ship) {
