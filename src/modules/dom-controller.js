@@ -97,4 +97,8 @@ export class DOMController {
     this.currentPlayerNameElem.innerHTML = this.game.currentPlayer.name;
     this.currentOpponentNameElem.innerHTML = this.game.currentOpponent().name;
   }
+
+  displayWinMessage(winner){
+    this.playerInfoElem.innerHTML = `GAME OVER! ${winner.name} won the game.`;
+  }
 }
