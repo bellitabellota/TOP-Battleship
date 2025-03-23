@@ -5,7 +5,7 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-describe("initializePlayer()", () => {
+describe("game.initializePlayer()", () => {
   const game = new Game();
 
   test("returns a ComputerPlayer when argument is 'Computer'", () => {
@@ -19,7 +19,7 @@ describe("initializePlayer()", () => {
   });
 });
 
-describe("initializePlayers()", () => {
+describe("game.initializePlayers()", () => {
   const game = new Game();
   const mockInitializePlayer = jest
     .spyOn(game, "initializePlayer")
@@ -27,7 +27,7 @@ describe("initializePlayers()", () => {
     .mockReturnValueOnce({ name: "Computer" });
   game.initializePlayers("Player1", "Computer");
 
-  test("initializePlayer() is called twice", () => {
+  test("game.initializePlayer() is called twice", () => {
     expect(mockInitializePlayer).toHaveBeenCalledTimes(2);
   });
 
@@ -36,7 +36,7 @@ describe("initializePlayers()", () => {
   });
 });
 
-describe("setInitialCurrentPlayer()", () => {
+describe("game.setInitialCurrentPlayer()", () => {
   const game = new Game();
   game.players = ["Player1", "Player2"];
 
@@ -51,7 +51,7 @@ describe("setInitialCurrentPlayer()", () => {
   });
 });
 
-describe("currentOpponent()", () => {
+describe("game.currentOpponent()", () => {
   const game = new Game();
   game.players = ["Player1", "Player2"];
   game.currentPlayer = game.players[0];
@@ -59,7 +59,7 @@ describe("currentOpponent()", () => {
   expect(game.currentOpponent()).toBe("Player2");
 })
 
-describe("switchCurrentPlayer()", () => {
+describe("game.switchCurrentPlayer()", () => {
   const game = new Game();
   game.players = ["Player1", "Player2"];
   game.currentPlayer = game.players[0];
@@ -72,7 +72,7 @@ describe("switchCurrentPlayer()", () => {
   }) 
 })
 
-describe("isChoiceValid", () => {
+describe("game.isChoiceValid", () => {
   const game = new Game();
 
   game.currentOpponent = jest.fn(() => ({
