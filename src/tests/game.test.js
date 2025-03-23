@@ -25,6 +25,7 @@ describe("game.initializePlayers()", () => {
     .spyOn(game, "initializePlayer")
     .mockReturnValueOnce({ name: "Player1" })
     .mockReturnValueOnce({ name: "Computer" });
+  const mockSetInitialCurrentPlayer = jest.spyOn(game, "setInitialCurrentPlayer")  
   game.initializePlayers("Player1", "Computer");
 
   test("game.initializePlayer() is called twice", () => {
@@ -34,6 +35,10 @@ describe("game.initializePlayers()", () => {
   test("this.players is updated", () => {
     expect(game.players).toEqual([{ name: "Player1" }, { name: "Computer" }]);
   });
+
+  test("game.setInitialCurrentPlayer() is called once", () => {
+    expect(mockSetInitialCurrentPlayer).toHaveBeenCalledTimes(1);
+  })
 });
 
 describe("game.setInitialCurrentPlayer()", () => {
