@@ -12,7 +12,7 @@ export class HumanPlayer extends Player {
     return new Promise(async (resolve) => {
       
       const coordinate = await cb();
-      console.log(coordinate);
+
       resolve(coordinate);
     }); 
   }
@@ -26,7 +26,7 @@ export class ComputerPlayer extends Player {
         const yCoordinate = Math.floor(Math.random() * 10);
   
       resolve([xCoordinate, yCoordinate]);
-      }, "2000");
+      }, 2000);
     }); 
   }
 }
