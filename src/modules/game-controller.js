@@ -3,11 +3,9 @@ export class GameController {
     this.game = game;
     this.domController = domController;
     this.initializeGame();
-    
   }
 
   initializeGame() {
-    
     this.game.initializePlayers("Player1", "Computer");
     this.domController.displayPlayerNames();
     this.domController.displayCurrentPlayerBoard();
@@ -26,7 +24,14 @@ export class GameController {
     this.domController.displayCurrentPlayerBoard();
 
     this.game.switchCurrentPlayer();
-    this.playRound();  
+
+    this.gameLoop(!this.game.isOver());
+  }
+
+  async gameLoop(gameOver) {
+    while (gameOver) {
+      await this.playRound();
+    }
   }
 
   async playRound() {
@@ -36,31 +41,14 @@ export class GameController {
     this.domController.displayCurrentOpponentBoard();
     let coordinate;
     do {
-      const handleBoardClick = 
-      coordinate = await this.game.currentPlayer.getCoordinateChoice(this.domController.addEventListenersToOpponentBoard.bind(this.domController));
+      const handleBoardClick = this.domController.addEventListenersToOpponentBoard.bind(this.domController);
+      coordinate = await this.game.currentPlayer.getCoordinateChoice(handleBoardClick);
     }
     while(!this.game.isChoiceValid(coordinate));
     
     this.game.currentOpponent().board.receiveAttack(coordinate);
 
     this.domController.displayCurrentOpponentBoard(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
-    this.game.switchCurrentPlayer();
-
-
-    /* make ComputerMove */
-    this.domController.displayPlayerNames();
-    this.domController.displayMoveRequest();
-    this.domController.displayCurrentPlayerBoard();
-    this.domController.displayCurrentOpponentBoard();
-    let coordinateComputer;
-
-    do {
-      coordinateComputer = await this.game.currentPlayer.getCoordinateChoice();
-    } 
-    while(!this.game.isChoiceValid(coordinateComputer));
-
-    this.game.currentOpponent().board.receiveAttack(coordinateComputer);
-    this.domController.displayCurrentOpponentBoard();
     this.game.switchCurrentPlayer();
   }
 }

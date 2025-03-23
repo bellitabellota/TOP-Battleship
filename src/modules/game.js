@@ -66,4 +66,9 @@ export class Game {
       return true;
     }
   }
+
+  /* finish and test the method below */
+  isOver() {
+    return false;
+  }
 }
