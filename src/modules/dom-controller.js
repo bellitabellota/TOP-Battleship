@@ -84,11 +84,11 @@ export class DOMController {
   getFieldContent(field, player){
     if (field === "m") {
       return field;
-    } else if(player === this.game.currentPlayer) {
-      return `\u{1F6A2}`;
     } else if (field === "h") {
       return `\u{1F3CA}`;
-    } else {
+    } else if(player === this.game.currentPlayer) {
+      return `\u{1F6A2}`;
+    }  else {
       return "";
     }      
   }
