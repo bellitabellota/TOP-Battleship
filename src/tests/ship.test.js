@@ -8,7 +8,7 @@ beforeEach(() => {
 
 /* testing the instance initialization is actually not necessary as the constructor only creates instance variables but does not call any method */
 
-test("instance initialization", () => {
+test("ship is correctly initialized with length, hitCount, and sunk properties", () => {
   expect(ship).toEqual({ length: 3, hitCount: 0, sunk: false });
 });
 
