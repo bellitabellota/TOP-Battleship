@@ -137,3 +137,16 @@ describe("game.isOver()", () => {
     expect(game.isOver()).toBe(false);
   });
 })
+
+describe("game.getShipOrientation()", () => {
+  const game = new Game();
+  test("returns 0 for numbers below or equal 4", () => {
+    const returnValue = game.getShipOrientation(4);
+    expect(returnValue).toBe(0);
+  })
+
+  test("returns 1 for numbers greater than 4", () => {
+    const returnValue = game.getShipOrientation(5);
+    expect(returnValue).toBe(1);
+  });
+})

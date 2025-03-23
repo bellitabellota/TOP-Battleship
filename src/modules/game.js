@@ -1,5 +1,6 @@
 import { HumanPlayer, ComputerPlayer } from "./player.js";
 import { Ship } from "./ship.js";
+import { getRandomInteger } from "./random-integer.js";
 
 export class Game {
   constructor() {
@@ -41,6 +42,8 @@ export class Game {
     const submarine = new Ship(3);
     const patrolBoat = new Ship(2);
 
+    this.getRandomCoordinatesForShip();
+
     const coordinatesCarrier = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]];
     const coordinatesBattleShip = [[2, 2], [2, 3], [2, 4], [2, 5]];
     const coordinatesDestroyer = [[5, 3], [5, 4], [5, 5]];
@@ -52,6 +55,18 @@ export class Game {
     this.currentPlayer.board.placeShip(coordinatesDestroyer, destroyer);
     this.currentPlayer.board.placeShip(coordinatesSubmarine, submarine);
     this.currentPlayer.board.placeShip(coordinatesPatrolBoat, patrolBoat);
+  }
+
+  getRandomCoordinatesForShip() {
+    const shipOrientation = this.getShipOrientation(getRandomInteger());
+  }
+
+  getShipOrientation(randomNumber) {
+    if (randomNumber <= 4) {
+      return 0;
+    } else {
+      return 1;
+    }
   }
 
   switchCurrentPlayer() {
