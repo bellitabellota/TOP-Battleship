@@ -68,10 +68,16 @@ describe("game.switchCurrentPlayer()", () => {
   const game = new Game();
   game.players = ["Player1", "Player2"];
   game.currentPlayer = game.players[0];
-
-  test ("updates game.currentPlayer", () => {
-    game.switchCurrentPlayer();
+  jest.useFakeTimers();
+  test ("updates game.currentPlayer", async () => {
+    const promise = game.switchCurrentPlayer();
+    jest.runAllTimers();
+    await promise;
     expect(game.currentPlayer).toBe("Player2");
+
+    const promise2 = game.switchCurrentPlayer();
+    jest.runAllTimers();
+    await promise2;
     game.switchCurrentPlayer();
     expect(game.currentPlayer).toBe("Player1");
   }) 

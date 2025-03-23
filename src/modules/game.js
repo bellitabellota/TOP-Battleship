@@ -55,7 +55,12 @@ export class Game {
   }
 
   switchCurrentPlayer() {
-    this.currentPlayer = this.currentPlayer === this.players[0] ? this.players[1] : this.players[0];
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        this.currentPlayer = this.currentPlayer === this.players[0] ? this.players[1] : this.players[0];
+        resolve();
+      }, 500)
+    });
   }
 
   isChoiceValid(coordinate) {

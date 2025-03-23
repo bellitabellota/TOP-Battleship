@@ -5,7 +5,7 @@ export class GameController {
     this.initializeGame();
   }
 
-  initializeGame() {
+  async initializeGame() {
     this.game.initializePlayers("Player1", "Computer");
     this.domController.displayPlayerNames();
     this.domController.displayCurrentPlayerBoard();
@@ -14,7 +14,7 @@ export class GameController {
     this.game.placeShips();
     this.domController.displayCurrentPlayerBoard();
 
-    this.game.switchCurrentPlayer();
+    await this.game.switchCurrentPlayer();
 
     this.domController.displayPlayerNames();
     this.domController.displayCurrentPlayerBoard();
@@ -23,7 +23,7 @@ export class GameController {
     this.game.placeShips();
     this.domController.displayCurrentPlayerBoard();
 
-    this.game.switchCurrentPlayer();
+    await this.game.switchCurrentPlayer();
 
     this.gameLoop(!this.game.isOver());
   }
@@ -49,6 +49,6 @@ export class GameController {
     this.game.currentOpponent().board.receiveAttack(coordinate);
 
     this.domController.displayCurrentOpponentBoard(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
-    this.game.switchCurrentPlayer();
+    await this.game.switchCurrentPlayer();
   }
 }
