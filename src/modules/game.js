@@ -42,6 +42,8 @@ export class Game {
     const submarine = new Ship(3);
     const patrolBoat = new Ship(2);
 
+    this.createFleet();
+
 
     const coordinatesCarrier = this.getRandomValidCoordinates(carrier, this.currentPlayer.board.current);
     const coordinatesBattleShip = [[2, 2], [2, 3], [2, 4], [2, 5]];
@@ -54,6 +56,19 @@ export class Game {
     this.currentPlayer.board.placeShip(coordinatesDestroyer, destroyer);
     this.currentPlayer.board.placeShip(coordinatesSubmarine, submarine);
     this.currentPlayer.board.placeShip(coordinatesPatrolBoat, patrolBoat);
+  }
+
+  createFleet(){
+    const fleet = [];
+    const carrier = new Ship(5);
+    const battleship = new Ship(4);
+    const destroyer = new Ship(3);
+    const submarine = new Ship(3);
+    const patrolBoat = new Ship(2);
+    
+    fleet.push(carrier, battleship, destroyer, submarine, patrolBoat);
+
+    return fleet;
   }
 
   getRandomValidCoordinates(ship, currentBoard) {

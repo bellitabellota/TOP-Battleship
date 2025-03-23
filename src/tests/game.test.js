@@ -288,3 +288,14 @@ describe("game.getRandomValidCoordinates(ship, currentBoard)", () => {
     expect(game.coordinatesValid).toHaveBeenCalledTimes(2);
   });
 });
+
+describe("game.createFleet()", () => {
+  const game = new Game();
+  test("creates a fleet with the correct ships", () => {
+    const fleet = game.createFleet();
+    expect(fleet.length).toBe(5);
+
+    const shipLengths = fleet.map((ship) => ship.length);
+    expect(shipLengths).toEqual([5, 4, 3, 3, 2]);
+  });
+});
