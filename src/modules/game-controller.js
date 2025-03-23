@@ -34,6 +34,7 @@ export class GameController {
       await this.playRound();
       gameOver = this.game.isOver();
     }
+    this.domController.displayWinMessage(this.game.currentOpponent());
   }
 
   async playRound() {
