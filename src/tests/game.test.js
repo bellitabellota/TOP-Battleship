@@ -22,11 +22,12 @@ describe("game.initializePlayer()", () => {
 
 describe("game.initializePlayers()", () => {
   const game = new Game();
-  const mockInitializePlayer = jest
-    .spyOn(game, "initializePlayer")
-    .mockReturnValueOnce({ name: "Player1" })
-    .mockReturnValueOnce({ name: "Computer" });
-  const mockSetInitialCurrentPlayer = jest.spyOn(game, "setInitialCurrentPlayer")  
+  const mockInitializePlayer = jest.fn().mockReturnValueOnce({ name: "Player1" }).mockReturnValueOnce({ name: "Computer" });
+  game.initializePlayer = mockInitializePlayer;
+    
+  const mockSetInitialCurrentPlayer = jest.fn();
+  game.setInitialCurrentPlayer = mockSetInitialCurrentPlayer;
+
   game.initializePlayers("Player1", "Computer");
 
   test("game.initializePlayer() is called twice", () => {
