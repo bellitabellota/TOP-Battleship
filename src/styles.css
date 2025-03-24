@@ -53,3 +53,7 @@ body {
 .row {
   display: flex;
 }
+
+.addendum {
+  background-color: aliceblue;
+}
