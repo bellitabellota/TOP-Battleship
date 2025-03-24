@@ -1,6 +1,4 @@
 import { HumanPlayer, ComputerPlayer } from "./player.js";
-import { Ship } from "./ship.js";
-import { getRandomInteger } from "./random-integer.js";
 
 export class Game {
   constructor() {
