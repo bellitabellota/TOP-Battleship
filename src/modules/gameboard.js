@@ -46,17 +46,17 @@ export class Gameboard {
 
   placeFleetOnBoard(fleet){
     fleet.forEach((ship) => {
-      const shipCoordinates = this.getRandomValidCoordinates(ship, this.current);
+      const shipCoordinates = this.getRandomValidCoordinates(ship);
       this.placeShip(shipCoordinates, ship);
     });
   }
 
-  getRandomValidCoordinates(ship, currentBoard) {
+  getRandomValidCoordinates(ship) {
     let randomCoordinates;
 
     do {
       randomCoordinates = this.getRandomCoordinatesForShip(ship);
-    } while (!this.coordinatesValid(randomCoordinates, currentBoard));
+    } while (!this.coordinatesValid(randomCoordinates, this.current));
 
     return randomCoordinates;
   }
