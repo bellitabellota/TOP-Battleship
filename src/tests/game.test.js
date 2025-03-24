@@ -289,17 +289,6 @@ describe("game.getRandomValidCoordinates(ship, currentBoard)", () => {
   });
 });
 
-describe("game.createFleet()", () => {
-  const game = new Game();
-  test("creates a fleet with the correct ships", () => {
-    const fleet = game.createFleet();
-    expect(fleet.length).toBe(5);
-
-    const shipLengths = fleet.map((ship) => ship.length);
-    expect(shipLengths).toEqual([5, 4, 3, 3, 2]);
-  });
-});
-
 describe("game.placeShipsOnCoordinates(fleet, board)", () => {
   const game = new Game();
   test("places fleet on board", () => {

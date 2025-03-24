@@ -32,3 +32,13 @@ describe("if ship.hitCount does NOT equal ship.length", () => {
     expect(ship.sunk).toBe(false);
   });
 });
+
+describe("Ship.createFleet()", () => {
+  test("creates a fleet with the correct ships", () => {
+    const fleet = Ship.createFleet();
+    expect(fleet.length).toBe(5);
+
+    const shipLengths = fleet.map((ship) => ship.length);
+    expect(shipLengths).toEqual([5, 4, 3, 3, 2]);
+  });
+});

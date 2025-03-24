@@ -1,7 +1,8 @@
 export class GameController {
-  constructor(game, domController) {
+  constructor(game, domController, shipClass) {
     this.game = game;
     this.domController = domController;
+    this.shipClass = shipClass;
     this.initializeGame();
   }
 
@@ -11,10 +12,10 @@ export class GameController {
     this.domController.displayCurrentPlayerBoard();
     this.domController.displayCurrentOpponentBoard();
 
-    this.game.placeFleet();
+    this.game.placeFleet(this.shipClass.createFleet());
     this.domController.displayCurrentPlayerBoard();
 
-    await this.game.switchCurrentPlayer();
+/*     await this.game.switchCurrentPlayer();
 
     this.domController.displayPlayerNames();
     this.domController.displayCurrentPlayerBoard();
@@ -25,7 +26,7 @@ export class GameController {
 
     await this.game.switchCurrentPlayer();
 
-    this.gameLoop();
+    this.gameLoop(); */
   }
 
   async gameLoop() {

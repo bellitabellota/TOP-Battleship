@@ -34,8 +34,7 @@ export class Game {
     return this.currentPlayer === this.players[0] ? this.players[1] : this.players[0];
   }
 
-  placeFleet() {
-    const fleet = this.createFleet();
+  placeFleet(fleet) {
     this.placeShipsOnCoordinates(fleet, this.currentPlayer.board.current);
   }
 
@@ -44,19 +43,6 @@ export class Game {
       const shipCoordinates = this.getRandomValidCoordinates(ship, board);
       this.currentPlayer.board.placeShip(shipCoordinates, ship);
     });
-  }
-
-  createFleet(){
-    const fleet = [];
-    const carrier = new Ship(5);
-    const battleship = new Ship(4);
-    const destroyer = new Ship(3);
-    const submarine = new Ship(3);
-    const patrolBoat = new Ship(2);
-    
-    fleet.push(carrier, battleship, destroyer, submarine, patrolBoat);
-
-    return fleet;
   }
 
   getRandomValidCoordinates(ship, currentBoard) {
