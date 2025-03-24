@@ -176,21 +176,16 @@ describe("board.doCoordinatesExist(coordinates)", () => {
 
 describe("board.getRandomCoordinatesForShip(ship)", () => {
   const board = new Gameboard();
-
   test("should stop the loop when doCoordinatesExist returns true and return the coordinates", () => {
-    const mockShip = { length: 3 };
     const validCoordinates = [[0, 0], [0, 1], [0, 2]];
+    board.getShipOrientation = jest.fn();
+    board.getStartCoordinate = jest.fn();
+    board.calculateCoordinatesShip = jest.fn().mockReturnValueOnce([[10, 0]]).mockReturnValueOnce(validCoordinates);
+    board.doCoordinatesExist = jest.fn().mockReturnValueOnce(false).mockReturnValueOnce(true);
 
-    jest.spyOn(board, "getShipOrientation");
-    jest.spyOn(board, "getStartCoordinate");
-    jest.spyOn(board, "calculateCoordinatesShip").mockReturnValueOnce([[10,0]]).mockReturnValueOnce(validCoordinates);
-    jest.spyOn(board, "doCoordinatesExist").mockReturnValueOnce(false).mockReturnValueOnce(true);
-
-    const returnedCoordinates = board.getRandomCoordinatesForShip(mockShip);
-
+    const returnedCoordinates = board.getRandomCoordinatesForShip("mockShip");
 
     expect(returnedCoordinates).toEqual(validCoordinates);
-
     expect(board.getShipOrientation).toHaveBeenCalledTimes(2);
     expect(board.getStartCoordinate).toHaveBeenCalledTimes(2);
     expect(board.calculateCoordinatesShip).toHaveBeenCalledTimes(2);
