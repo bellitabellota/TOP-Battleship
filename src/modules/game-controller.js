@@ -19,18 +19,19 @@ export class GameController {
   async placeFleetLoop() {
     for(let i = 0; i <= 1; i++ ) {
       this.domController.displayGameStatus();
-
-      const handlePlacementClick = this.domController.addPlaceFleetButton.bind(this.domController);
-      const fleet = this.shipClass.createFleet();
-      const placeFleetOnBoard = this.game.currentPlayer.board.placeFleetOnBoard.bind(this.game.currentPlayer.board);
-      const removePlaceFleetButton = this.domController.removePlaceFleetButton.bind(this.domController);
-
-
-      await this.game.currentPlayer.makePlacement(fleet, placeFleetOnBoard, handlePlacementClick, removePlaceFleetButton);
+      await this.placeFleetForCurrentPlayer();
       this.domController.displayCurrentPlayerBoard();
-
       await this.game.switchCurrentPlayer();
     }
+  }
+
+  async placeFleetForCurrentPlayer() {
+    const handlePlacementClick = this.domController.addPlaceFleetButton.bind(this.domController);
+    const fleet = this.shipClass.createFleet();
+    const placeFleetOnBoard = this.game.currentPlayer.board.placeFleetOnBoard.bind(this.game.currentPlayer.board);
+    const removePlaceFleetButton = this.domController.removePlaceFleetButton.bind(this.domController);
+
+    await this.game.currentPlayer.makePlacement(fleet, placeFleetOnBoard, handlePlacementClick, removePlaceFleetButton);
   }
 
   async gameLoop() {
