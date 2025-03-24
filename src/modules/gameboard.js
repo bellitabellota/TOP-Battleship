@@ -56,12 +56,12 @@ export class Gameboard {
 
     do {
       randomCoordinates = this.getRandomCoordinatesForShip(ship);
-    } while (!this.coordinatesValid(randomCoordinates, this.current));
+    } while (!this.coordinatesValid(randomCoordinates));
 
     return randomCoordinates;
   }
 
-  coordinatesValid(randomCoordinates, currentBoard) {
+  coordinatesValid(randomCoordinates) {
     for (const [x, y] of randomCoordinates) {
       const adjacentCoordinates = [
         [x - 1, y - 1],
@@ -77,7 +77,7 @@ export class Gameboard {
       const validAdjacentCoordinates = this.filterCoordinatesOnBoard(adjacentCoordinates);
   
       for (const coordinate of validAdjacentCoordinates) {
-        const fieldValue = currentBoard[coordinate[0]][coordinate[1]];
+        const fieldValue = this.current[coordinate[0]][coordinate[1]];
         if (fieldValue !== null && fieldValue !== undefined) {
           return false;
         }

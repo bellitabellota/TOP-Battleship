@@ -211,44 +211,20 @@ describe("board.filterCoordinatesOnBoard(adjacentCoordinates)", () => {
   });
 });
 
-describe("board.coordinatesValid(randomCoordinates, currentBoard)", () => {
+describe("board.coordinatesValid(randomCoordinates)", () => {
   const board = new Gameboard();
-
   test("should return true if all adjacent fields are null or undefined", () => {
     const randomCoordinates = [[0, 0], [0, 1]];
 
-    const currentBoard = [[null, null, null, null, null, null, null, null, null, null],
-    [null, undefined, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-  ];
-
-    const result = board.coordinatesValid(randomCoordinates, currentBoard);
+    const result = board.coordinatesValid(randomCoordinates);
     expect(result).toBe(true);
   });
 
-  test("should return false if any adjacent field is not null or undefined", () => {
+  test("should return false if any adjacent field is NOT null or undefined", () => {
     const randomCoordinates = [[4, 4], [4, 5]];
-    const currentBoard = [[null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-  ];
-    currentBoard[3][4] = "ship";
+    board.current[3][4] = "ship";
 
-    const result = board.coordinatesValid(randomCoordinates, currentBoard);
+    const result = board.coordinatesValid(randomCoordinates);
 
     expect(result).toBe(false);
   });
