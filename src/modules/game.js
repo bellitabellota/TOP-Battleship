@@ -36,26 +36,15 @@ export class Game {
 
   /* test method below once it is finally implemented */
   placeShips() {
-    const carrier = new Ship(5);
-    const battleship = new Ship(4);
-    const destroyer = new Ship(3);
-    const submarine = new Ship(3);
-    const patrolBoat = new Ship(2);
+    const fleet = this.createFleet();
+    this.placeShipsOnCoordinates(fleet, this.currentPlayer.board.current);
+  }
 
-    this.createFleet();
-
-
-    const coordinatesCarrier = this.getRandomValidCoordinates(carrier, this.currentPlayer.board.current);
-    const coordinatesBattleShip = [[2, 2], [2, 3], [2, 4], [2, 5]];
-    const coordinatesDestroyer = [[5, 3], [5, 4], [5, 5]];
-    const coordinatesSubmarine = [[7, 3], [7, 4], [7, 5]];
-    const coordinatesPatrolBoat = [[9, 4], [9, 5]];
-
-    this.currentPlayer.board.placeShip(coordinatesCarrier, carrier);
-    this.currentPlayer.board.placeShip(coordinatesBattleShip, battleship);
-    this.currentPlayer.board.placeShip(coordinatesDestroyer, destroyer);
-    this.currentPlayer.board.placeShip(coordinatesSubmarine, submarine);
-    this.currentPlayer.board.placeShip(coordinatesPatrolBoat, patrolBoat);
+  placeShipsOnCoordinates(fleet, board){
+    fleet.forEach((ship) => {
+      const shipCoordinates = this.getRandomValidCoordinates(ship, board);
+      this.currentPlayer.board.placeShip(shipCoordinates, ship);
+    });
   }
 
   createFleet(){

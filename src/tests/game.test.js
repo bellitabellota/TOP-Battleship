@@ -299,3 +299,27 @@ describe("game.createFleet()", () => {
     expect(shipLengths).toEqual([5, 4, 3, 3, 2]);
   });
 });
+
+describe("game.placeShipsOnCoordinates(fleet, board)", () => {
+  const game = new Game();
+  test("places fleet on board", () => {
+    const fleet = [{length: 5}, {length: 3}];
+    const mockBoard = [];
+    game.currentPlayer = {
+      board: {
+        placeShip: jest.fn()
+      }
+    }
+
+    jest.spyOn(game, "getRandomValidCoordinates").mockReturnValueOnce([0,0]).mockReturnValueOnce([6,8]);
+
+    game.placeShipsOnCoordinates(fleet, mockBoard);
+
+    expect(game.getRandomValidCoordinates).toHaveBeenCalledTimes(fleet.length);
+    expect(game.currentPlayer.board.placeShip).toHaveBeenCalledTimes(fleet.length);
+
+
+    expect(game.currentPlayer.board.placeShip).toHaveBeenCalledWith([0, 0], fleet[0]);
+    expect(game.currentPlayer.board.placeShip).toHaveBeenCalledWith([6, 8], fleet[1]);
+  });
+});
