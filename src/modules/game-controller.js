@@ -35,10 +35,8 @@ export class GameController {
   }
 
   async gameLoop() {
-    let gameOver = this.game.isOver();
-    while (!gameOver) {
+    while (!this.game.isOver()) {
       await this.playRound();
-      gameOver = this.game.isOver();
     }
     this.domController.displayWinMessage(this.game.currentOpponent());
   }
