@@ -34,7 +34,7 @@ export class Game {
     return this.currentPlayer === this.players[0] ? this.players[1] : this.players[0];
   }
 
-  placeShipsOnCoordinates(fleet, board){
+  placeFleetOnBoard(fleet, board){
     fleet.forEach((ship) => {
       const shipCoordinates = this.getRandomValidCoordinates(ship, board);
       this.currentPlayer.board.placeShip(shipCoordinates, ship);

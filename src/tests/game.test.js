@@ -289,7 +289,7 @@ describe("game.getRandomValidCoordinates(ship, currentBoard)", () => {
   });
 });
 
-describe("game.placeShipsOnCoordinates(fleet, board)", () => {
+describe("game.placeFleetOnBoard(fleet, board)", () => {
   const game = new Game();
   test("places fleet on board", () => {
     const fleet = [{length: 5}, {length: 3}];
@@ -302,7 +302,7 @@ describe("game.placeShipsOnCoordinates(fleet, board)", () => {
 
     jest.spyOn(game, "getRandomValidCoordinates").mockReturnValueOnce([0,0]).mockReturnValueOnce([6,8]);
 
-    game.placeShipsOnCoordinates(fleet, mockBoard);
+    game.placeFleetOnBoard(fleet, mockBoard);
 
     expect(game.getRandomValidCoordinates).toHaveBeenCalledTimes(fleet.length);
     expect(game.currentPlayer.board.placeShip).toHaveBeenCalledTimes(fleet.length);

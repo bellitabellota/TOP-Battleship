@@ -12,7 +12,7 @@ export class GameController {
     this.domController.displayCurrentPlayerBoard();
     this.domController.displayCurrentOpponentBoard();
 
-    this.game.placeShipsOnCoordinates(this.shipClass.createFleet(), this.game.currentPlayer.board.current);
+    this.game.placeFleetOnBoard(this.shipClass.createFleet(), this.game.currentPlayer.board.current);
     this.domController.displayCurrentPlayerBoard();
 
 /*     await this.game.switchCurrentPlayer();
