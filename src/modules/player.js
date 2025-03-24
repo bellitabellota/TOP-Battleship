@@ -17,10 +17,11 @@ export class HumanPlayer extends Player {
     }); 
   }
 
-  makePlacement(fleet, placeFleetOnBoard, clickCallback) {
+  makePlacement(fleet, placeFleetOnBoard, clickCallback, removeButtonCallback) {
     return new Promise(async (resolve) => {
       await clickCallback();
       placeFleetOnBoard(fleet);
+      removeButtonCallback();
       resolve();
     });
   }

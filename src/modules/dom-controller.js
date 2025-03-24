@@ -9,6 +9,10 @@ export class DOMController {
     this.placeFleetBtnContainer = document.querySelector(".js-place-fleet-button-container");
     }
 
+    removePlaceFleetButton() {
+      this.placeFleetBtnContainer.innerHTML = "";
+    }
+
     addPlaceFleetButton() {
       return new Promise((resolve) => { 
         this.placeFleetBtnContainer.innerHTML = `<button class="js-place-fleet-button">Place Fleet</button>`;
