@@ -3,10 +3,10 @@ export class GameController {
     this.game = game;
     this.domController = domController;
     this.shipClass = shipClass;
-    this.initializeGame();
+    this.playGame();
   }
 
-  async initializeGame() {
+  async playGame() {
     this.game.initializePlayers("Player1", "Computer");
 
     this.domController.displayPlayerNames();
