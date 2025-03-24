@@ -68,53 +68,22 @@ describe("gameboard.receiveAttack(coordinate)", () => {
     gameboard.receiveAttack([5, 5]);
 
     expect(mockShip.hit).toHaveBeenCalledTimes(0);
+    expect(mockShip.isSunk).toHaveBeenCalledTimes(0);
     expect(gameboard.current[5][5]).toBe("m");
   });
 });
 
 describe("gameboard.allShipsSunk()", () => {
-  let sunkenMockShip;
-  let sunkenMockShip2;
-  let gameboard;
-  beforeEach(() => {
-    gameboard = new Gameboard();
-    sunkenMockShip = new Ship(3);
-    sunkenMockShip.sunk = true;
-    const coordinates = [
-      [0, 0],
-      [0, 1],
-      [0, 2],
-    ];
+  test("returns true if all ships in placedShips are sunk", () => {
+    const gameboard = new Gameboard();
+    gameboard.placedShips = [{ sunk: true }, { sunk: true }];
 
-    gameboard.placeShip(coordinates, sunkenMockShip);
-
-    sunkenMockShip2 = new Ship(4);
-    sunkenMockShip2.sunk = true;
-    const coordinates2 = [
-      [2, 0],
-      [2, 1],
-      [2, 2],
-      [2, 3],
-    ];
-
-    gameboard.placeShip(coordinates2, sunkenMockShip2);
-  });
-
-  test("returns true if of ALL placed ships.sunk is true", () => {
     expect(gameboard.allShipsSunk()).toBe(true);
   });
 
-  test("returns false if NOT ALL placed ships.sunk is true", () => {
-    const floatingMockShip = new Ship(5);
-    const coordinates2 = [
-      [3, 0],
-      [3, 1],
-      [3, 2],
-      [3, 3],
-      [3, 4],
-    ];
-
-    gameboard.placeShip(coordinates2, floatingMockShip);
+  test("returns false if at least one ship in placedShips is not sunk", () => {
+    const gameboard = new Gameboard();
+    gameboard.placedShips = [{ sunk: true }, { sunk: false }];
 
     expect(gameboard.allShipsSunk()).toBe(false);
   });
