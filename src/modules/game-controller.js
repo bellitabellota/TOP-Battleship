@@ -45,16 +45,19 @@ export class GameController {
     this.domController.displayGameStatus();
     this.domController.displayMoveRequest();
     
+    const coordinate = await this.getValidCoordinate();
+    
+    this.game.currentOpponent().board.receiveAttack(coordinate);
+    this.domController.displayCurrentOpponentBoard(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
+    await this.game.switchCurrentPlayer();
+  }
+
+  async getValidCoordinate() {
     let coordinate;
     do {
       const handleBoardClick = this.domController.addEventListenersToOpponentBoard.bind(this.domController);
       coordinate = await this.game.currentPlayer.getCoordinateChoice(handleBoardClick);
-    }
-    while(!this.game.isChoiceValid(coordinate));
-    
-    this.game.currentOpponent().board.receiveAttack(coordinate);
-
-    this.domController.displayCurrentOpponentBoard(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
-    await this.game.switchCurrentPlayer();
+    } while (!this.game.isChoiceValid(coordinate));
+    return coordinate;
   }
 }
