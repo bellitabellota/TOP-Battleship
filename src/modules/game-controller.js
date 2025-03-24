@@ -9,9 +9,7 @@ export class GameController {
   async playGame() {
     this.game.initializePlayers("Player1", "Computer");
 
-    this.domController.displayPlayerNames();
-    this.domController.displayCurrentPlayerBoard();
-    this.domController.displayCurrentOpponentBoard();
+    this.domController.displayGameStatus();
 
     await this.placeFleetLoop();
 
@@ -21,9 +19,7 @@ export class GameController {
   async placeFleetLoop() {
     return new Promise(async (resolve) => {
       for(let i = 0; i <= 1; i++ ) {
-        this.domController.displayPlayerNames();
-        this.domController.displayCurrentPlayerBoard();
-        this.domController.displayCurrentOpponentBoard();
+        this.domController.displayGameStatus();
   
         const handlePlacementClick = this.domController.addPlaceFleetButton.bind(this.domController);
         const fleet = this.shipClass.createFleet();
@@ -50,10 +46,9 @@ export class GameController {
   }
 
   async playRound() {
-    this.domController.displayPlayerNames();
+    this.domController.displayGameStatus();
     this.domController.displayMoveRequest();
-    this.domController.displayCurrentPlayerBoard();
-    this.domController.displayCurrentOpponentBoard();
+    
     let coordinate;
     do {
       const handleBoardClick = this.domController.addEventListenersToOpponentBoard.bind(this.domController);

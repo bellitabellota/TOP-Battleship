@@ -9,6 +9,12 @@ export class DOMController {
     this.placeFleetBtnContainer = document.querySelector(".js-place-fleet-button-container");
     }
 
+    displayGameStatus() {
+      this.displayPlayerNames();
+      this.displayCurrentPlayerBoard();
+      this.displayCurrentOpponentBoard();
+    }
+
     removePlaceFleetButton() {
       this.placeFleetBtnContainer.innerHTML = "";
     }
