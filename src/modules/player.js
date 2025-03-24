@@ -38,4 +38,11 @@ export class ComputerPlayer extends Player {
       }, 500);
     }); 
   }
+
+  makePlacement(fleet, placeFleetOnBoard) {
+    return new Promise(async (resolve) => {
+      placeFleetOnBoard(fleet);
+      resolve();
+    });
+  }
 }
