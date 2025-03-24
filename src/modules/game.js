@@ -34,8 +34,7 @@ export class Game {
     return this.currentPlayer === this.players[0] ? this.players[1] : this.players[0];
   }
 
-  /* test method below once it is finally implemented */
-  placeShips() {
+  placeFleet() {
     const fleet = this.createFleet();
     this.placeShipsOnCoordinates(fleet, this.currentPlayer.board.current);
   }

@@ -11,7 +11,7 @@ export class GameController {
     this.domController.displayCurrentPlayerBoard();
     this.domController.displayCurrentOpponentBoard();
 
-    this.game.placeShips();
+    this.game.placeFleet();
     this.domController.displayCurrentPlayerBoard();
 
     await this.game.switchCurrentPlayer();
@@ -20,7 +20,7 @@ export class GameController {
     this.domController.displayCurrentPlayerBoard();
     this.domController.displayCurrentOpponentBoard();
 
-    this.game.placeShips();
+    this.game.placeFleet();
     this.domController.displayCurrentPlayerBoard();
 
     await this.game.switchCurrentPlayer();
