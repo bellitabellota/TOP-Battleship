@@ -256,16 +256,14 @@ describe("board.coordinatesValid(randomCoordinates, currentBoard)", () => {
 
 describe("board.getRandomValidCoordinates(ship)", () => {
   const board = new Gameboard();
-
   test("returns valid coordinates for a given ship and board", () => {
     const validCoordinates = [[0, 0], [0, 1], [0, 2]];
-    jest.spyOn(board, "getRandomCoordinatesForShip").mockReturnValue(validCoordinates);
-    jest.spyOn(board, "coordinatesValid").mockReturnValueOnce(false).mockReturnValueOnce(true);
+    board.getRandomCoordinatesForShip = jest.fn().mockReturnValue(validCoordinates);
+    board.coordinatesValid = jest.fn().mockReturnValueOnce(false).mockReturnValueOnce(true);
     
     const returnValue = board.getRandomValidCoordinates("ship");
 
     expect(returnValue).toEqual(validCoordinates);
-
     expect(board.coordinatesValid).toHaveBeenCalledTimes(2);
   });
 });
