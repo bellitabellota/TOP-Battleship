@@ -1,5 +1,6 @@
 import { Game } from "../modules/game";
 import { HumanPlayer, ComputerPlayer } from "../modules/player";
+jest.mock("../modules/player");
 
 afterEach(() => {
   jest.restoreAllMocks();
