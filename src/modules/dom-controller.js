@@ -6,6 +6,19 @@ export class DOMController {
     this.currentPlayerNameElem = document.querySelector(".js-current-player-name");
     this.currentOpponentNameElem = document.querySelector(".js-opponent-name");
     this.playerInfoElem = document.querySelector(".js-player-information");
+    this.placeFleetBtnContainer = document.querySelector(".js-place-fleet-button-container");
+    }
+
+    addPlaceFleetButton() {
+      return new Promise((resolve) => { 
+        this.placeFleetBtnContainer.innerHTML = `<button class="js-place-fleet-button">Place Fleet</button>`;
+
+        const placeFleetButton = document.querySelector(".js-place-fleet-button");
+        
+        placeFleetButton.addEventListener("click", () => {
+          resolve();
+        });
+      });
     }
 
     displayMoveRequest() {

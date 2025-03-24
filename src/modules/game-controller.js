@@ -12,16 +12,21 @@ export class GameController {
     this.domController.displayCurrentPlayerBoard();
     this.domController.displayCurrentOpponentBoard();
 
-    this.game.currentPlayer.board.placeFleetOnBoard(this.shipClass.createFleet());
+    const handlePlacementClick = this.domController.addPlaceFleetButton.bind(this.domController);
+    const fleet = this.shipClass.createFleet();
+    const placeFleetOnBoard = this.game.currentPlayer.board.placeFleetOnBoard.bind(this.game.currentPlayer.board);
+
+
+    await this.game.currentPlayer.makePlacement(fleet, placeFleetOnBoard, handlePlacementClick);
     this.domController.displayCurrentPlayerBoard();
 
-/*     await this.game.switchCurrentPlayer();
+    await this.game.switchCurrentPlayer();
 
     this.domController.displayPlayerNames();
     this.domController.displayCurrentPlayerBoard();
     this.domController.displayCurrentOpponentBoard();
 
-    this.game.placeFleet();
+    /* this.game.placeFleet();
     this.domController.displayCurrentPlayerBoard();
 
     await this.game.switchCurrentPlayer();

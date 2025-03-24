@@ -16,6 +16,14 @@ export class HumanPlayer extends Player {
       resolve(coordinate);
     }); 
   }
+
+  makePlacement(fleet, placeFleetOnBoard, clickCallback) {
+    return new Promise(async (resolve) => {
+      await clickCallback();
+      placeFleetOnBoard(fleet);
+      resolve();
+    });
+  }
 }
 
 export class ComputerPlayer extends Player {
