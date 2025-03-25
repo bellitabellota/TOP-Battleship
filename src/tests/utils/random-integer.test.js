@@ -1,4 +1,4 @@
-import { getRandomInteger } from "../modules/utils/random-integer";
+import { getRandomInteger } from "../../modules/utils/random-integer";
 
 test("returns a number between 0 and 9 (both included)", () => { 
   for (let i = 0; i < 100; i++) {
