@@ -60,4 +60,9 @@ export class Game {
       ? "The Computer is making his move."
       : `${playerName}, it is time to attack your enemy. Click on a field of your choice.`;
   }
+
+  getWinMessage() {
+    const winner = this.currentOpponent();
+    `GAME OVER! ${winner.name} won the game.`;
+  }
 }

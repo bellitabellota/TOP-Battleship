@@ -36,12 +36,17 @@ export class GameController {
     while (!this.game.isOver()) {
       await this.playRound();
     }
-    this.domController.displayWinMessage(this.game.currentOpponent());
+    this.announceWinner();
+  }
+
+  announceWinner() {
+    this.game.getWinMessage();
+    this.domController.displayWinMessage(message);
   }
 
   async playRound() {
     this.domController.displayGameStatus();
-    
+
     const message = this.game.getMoveRequestMessage()
     this.domController.displayMoveRequest(message);
     
