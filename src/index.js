@@ -6,5 +6,5 @@ import { Ship } from "./modules/ship.js";
 
 const game = new Game();
 const domController = new DOMController(game);
-const gameController = new GameController(game, domController, Ship);
+const gameController = new GameController(game, domController);
 

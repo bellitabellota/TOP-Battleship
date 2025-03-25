@@ -1,8 +1,9 @@
+import {createFleet} from "./utils/create-fleet.js"
+
 export class GameController {
-  constructor(game, domController, shipClass) {
+  constructor(game, domController) {
     this.game = game;
     this.domController = domController;
-    this.shipClass = shipClass;
     this.playGame();
   }
 
@@ -24,7 +25,7 @@ export class GameController {
 
   async placeFleetForCurrentPlayer() {
     const handlePlacementClick = this.domController.addPlaceFleetButton.bind(this.domController);
-    const fleet = this.shipClass.createFleet();
+    const fleet = createFleet();
     const placeFleetOnBoard = this.game.currentPlayer.board.placeFleetOnBoard.bind(this.game.currentPlayer.board);
     const removePlaceFleetButton = this.domController.removePlaceFleetButton.bind(this.domController);
 
