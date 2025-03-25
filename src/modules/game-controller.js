@@ -18,29 +18,19 @@ export class GameController {
     for(let i = 0; i <= 1; i++ ) {
       this.displayGameStatus();
       await this.placeFleetForCurrentPlayer();
-      this.displayCurrentPlayerBoard();
+      this.displayCurrentBoard(this.game.currentPlayer.board.current, true);
       await this.game.switchCurrentPlayer();
     }
   }
 
   displayGameStatus() {
     this.domController.displayPlayerNames(this.game.currentPlayer.name, this.game.currentOpponent().name);
-    this.displayCurrentPlayerBoard();
-    this.displayCurrentOpponentBoard();
+    this.displayCurrentBoard(this.game.currentPlayer.board.current, true);
+    this.displayCurrentBoard(this.game.currentOpponent().board.current, false);
   }
 
-  displayCurrentPlayerBoard(){
-    const player = this.game.currentPlayer;
-    const isBoardOfCurrentPlayer = player === this.game.currentPlayer ? true : false;
-
-    this.domController.displayCurrentBoard(player.board.current, isBoardOfCurrentPlayer);
-  }
-
-  displayCurrentOpponentBoard() {
-    const player = this.game.currentOpponent();
-    const isBoardOfCurrentPlayer = player === this.game.currentPlayer ? true : false;
-
-    this.domController.displayCurrentBoard(player.board.current, isBoardOfCurrentPlayer);
+  displayCurrentBoard(player, isBoardOfCurrentPlayer) {
+    this.domController.displayCurrentBoard(player, isBoardOfCurrentPlayer);
   }
 
   async placeFleetForCurrentPlayer() {
@@ -60,7 +50,7 @@ export class GameController {
   }
 
   announceWinner() {
-    this.game.getWinMessage();
+    const message = this.game.getWinMessage();
     this.domController.displayWinMessage(message);
   }
 
@@ -73,7 +63,7 @@ export class GameController {
     const coordinate = await this.getValidCoordinate();
     
     this.game.currentOpponent().board.receiveAttack(coordinate);
-    this.displayCurrentOpponentBoard(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
+    this.displayCurrentBoard(this.game.currentOpponent().board.current, false); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
     await this.game.switchCurrentPlayer();
   }
 
