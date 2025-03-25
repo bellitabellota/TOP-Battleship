@@ -24,7 +24,7 @@ export class GameController {
   }
 
   displayGameStatus() {
-    this.domController.displayPlayerNames();
+    this.domController.displayPlayerNames(this.game.currentPlayer.name, this.game.currentOpponent().name);
     this.displayCurrentPlayerBoard();
     this.displayCurrentOpponentBoard();
   }

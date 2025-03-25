@@ -88,9 +88,9 @@ export class DOMController {
     }      
   }
 
-  displayPlayerNames() {
-    this.currentPlayerNameElem.innerHTML = this.game.currentPlayer.name;
-    this.currentOpponentNameElem.innerHTML = this.game.currentOpponent().name;
+  displayPlayerNames(currentPlayerName, opponentPlayerName) {
+    this.currentPlayerNameElem.innerHTML = currentPlayerName;
+    this.currentOpponentNameElem.innerHTML = opponentPlayerName;
   }
 
   displayWinMessage(message){
