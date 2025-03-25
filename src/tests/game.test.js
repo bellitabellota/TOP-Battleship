@@ -58,7 +58,7 @@ describe("game.setInitialCurrentPlayer()", () => {
   });
 });
 
-describe("game.currentOpponent()", () => {
+test("game.currentOpponent() returns the opponent player", () => {
   const game = new Game();
   game.players = ["Player1", "Player2"];
   game.currentPlayer = game.players[0];
@@ -139,3 +139,30 @@ describe("game.isOver()", () => {
     expect(game.isOver()).toBe(false);
   });
 })
+
+describe("game.getMoveRequestMessage()", () => {
+  const game = new Game();
+
+  test("returns the correct message for a human player", () => {
+    game.currentPlayer = { name: "Alice" };
+    const result = game.getMoveRequestMessage();
+    expect(result).toBe("Alice, it is time to attack your enemy. Click on a field of your choice.");
+  });
+
+  test("returns the correct message for the computer player", () => {
+    game.currentPlayer = { name: "Computer" };
+    const result = game.getMoveRequestMessage();
+    expect(result).toBe("The Computer is making his move.");
+  });
+});
+
+describe("game.getWinMessage()", () => {
+  const game = new Game();
+
+  game.currentOpponent = jest.fn(() => ({ name: "Bob" }));
+
+  test("returns the correct win message", () => {
+    const result = game.getWinMessage();
+    expect(result).toBe("GAME OVER! Bob won the game.");
+  });
+});
