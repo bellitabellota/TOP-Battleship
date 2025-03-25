@@ -48,7 +48,7 @@ export class DOMController {
       return [xCoordinate, yCoordinate];
     }
 
-  displayCurrentBoard(playerBoard, domBoard, player) {
+  displayCurrentBoard(playerBoard, domBoard, isBoardOfCurrentPlayer) {
     domBoard.innerHTML = "";
 
     playerBoard.forEach((row, rowIndex) => {
@@ -57,17 +57,17 @@ export class DOMController {
       domBoard.appendChild(divRowElem);
 
       row.forEach((field, fieldIndex) => {
-        const divElem = this.createField(player, field, rowIndex, fieldIndex);
+        const divElem = this.createField(isBoardOfCurrentPlayer, field, rowIndex, fieldIndex);
         divRowElem.appendChild(divElem);
       });
     })
   }
 
-  createField (player, field, rowIndex, fieldIndex){
+  createField (isBoardOfCurrentPlayer, field, rowIndex, fieldIndex){
     const divElem = document.createElement("div");
 
     if (field !== null) {
-      divElem.innerHTML = this.getFieldContent(field, player);
+      divElem.innerHTML = this.getFieldContent(field, isBoardOfCurrentPlayer);
     }        
 
     divElem.classList=`field js-field`;
@@ -75,12 +75,12 @@ export class DOMController {
     return divElem;
   };
 
-  getFieldContent(field, player){
+  getFieldContent(field, isBoardOfCurrentPlayer){
     if (field === "m") {
       return field;
     } else if (field === "h") {
       return `\u{1F3CA}`;
-    } else if(player === this.game.currentPlayer) {
+    } else if(isBoardOfCurrentPlayer) {
       return `\u{1F6A2}`;
     }  else {
       return "";

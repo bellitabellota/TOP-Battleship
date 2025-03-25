@@ -30,11 +30,17 @@ export class GameController {
   }
 
   displayCurrentPlayerBoard(){
-    this.domController.displayCurrentBoard(this.game.currentPlayer.board.current, this.domController.domBoardCurrentPlayer, this.game.currentPlayer);
+    const player = this.game.currentPlayer;
+    const isBoardOfCurrentPlayer = player === this.game.currentPlayer ? true : false;
+
+    this.domController.displayCurrentBoard(this.game.currentPlayer.board.current, this.domController.domBoardCurrentPlayer, isBoardOfCurrentPlayer);
   }
 
   displayCurrentOpponentBoard() {
-    this.domController.displayCurrentBoard(this.game.currentOpponent().board.current, this.domController.domBoardOpponentPlayer, this.game.currentOpponent());
+    const player = this.game.currentOpponent();
+    const isBoardOfCurrentPlayer = player === this.game.currentPlayer ? true : false;
+
+    this.domController.displayCurrentBoard(this.game.currentOpponent().board.current, this.domController.domBoardOpponentPlayer, isBoardOfCurrentPlayer);
   }
 
   async placeFleetForCurrentPlayer() {
