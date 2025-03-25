@@ -12,15 +12,15 @@ describe("object initialization", () => {
 describe("gameController.placeFleetLoop()", () => {
   test("the loop is executed twice", async () => {
     const gameMock = {switchCurrentPlayer: jest.fn()};
-    const domControllerMock = {displayGameStatus: jest.fn()};
 
-    const gameController = new GameController(gameMock, domControllerMock);
+    const gameController = new GameController(gameMock, "domController");
     gameController.placeFleetForCurrentPlayer = jest.fn();
     gameController.displayCurrentPlayerBoard = jest.fn();
+    gameController.displayGameStatus = jest.fn();
 
     await gameController.placeFleetLoop();
 
-    expect(domControllerMock.displayGameStatus).toHaveBeenCalledTimes(2);
+    expect(gameController.displayGameStatus).toHaveBeenCalledTimes(2);
     expect(gameController.placeFleetForCurrentPlayer).toHaveBeenCalledTimes(2);
     expect(gameController.displayCurrentPlayerBoard).toHaveBeenCalledTimes(2);
     expect(gameMock.switchCurrentPlayer).toHaveBeenCalledTimes(2);
