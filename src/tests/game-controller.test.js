@@ -27,15 +27,18 @@ describe("gameController.placeFleetLoop()", () => {
 
 describe("gameController.gameLoop()", () => {
   test("the loop stops when the condition is met", async () => {
-    const mockGame = { isOver: jest.fn().mockReturnValueOnce(false).mockReturnValueOnce(false).mockReturnValueOnce(true), currentOpponent: jest.fn() };
-    const mockDomController = { displayWinMessage: jest.fn().mockReturnValue("win")};
-    const gameController = new GameController(mockGame, mockDomController);
-    gameController.playRound = jest.fn();
+    const mockGame = { isOver: jest.fn().mockReturnValueOnce(false).mockReturnValueOnce(false).mockReturnValueOnce(true) };
 
+    const gameController = new GameController(mockGame, "domController");
+
+    gameController.announceWinner = jest.fn();
+    gameController.playRound = jest.fn();
+        
     await gameController.gameLoop();
 
     expect(mockGame.isOver).toHaveBeenCalledTimes(3);
     expect(gameController.playRound).toHaveBeenCalledTimes(2);
+    expect(gameController.announceWinner).toHaveBeenCalledTimes(1);
   });
 })
 
