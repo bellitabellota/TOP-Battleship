@@ -9,12 +9,6 @@ export class DOMController {
     this.placeFleetBtnContainer = document.querySelector(".js-place-fleet-button-container");
     }
 
-    displayGameStatus() {
-      this.displayPlayerNames();
-      this.displayCurrentPlayerBoard();
-      this.displayCurrentOpponentBoard();
-    }
-
     removePlaceFleetButton() {
       this.placeFleetBtnContainer.innerHTML = "";
     }
@@ -54,34 +48,16 @@ export class DOMController {
       return [xCoordinate, yCoordinate];
     }
 
-    displayCurrentOpponentBoard() {
-      const opponent = this.game.currentOpponent();
-      const currentOpponentBoard = opponent.board.current;
-      this.domBoardOpponentPlayer.innerHTML = "";
-  
-      currentOpponentBoard.forEach((row, rowIndex) => {
-        const divRowElem = document.createElement("div");
-        divRowElem.classList =`row`;
-        this.domBoardOpponentPlayer.appendChild(divRowElem);
-  
-        row.forEach((field, fieldIndex) => {
-          const divElem = this.createField(opponent, field, rowIndex, fieldIndex);
-          divRowElem.appendChild(divElem);
-        });
-      })
-    }
+  displayCurrentBoard(playerBoard, domBoard, player) {
+    domBoard.innerHTML = "";
 
-  displayCurrentPlayerBoard() {
-    const currentPlayerBoard = this.game.currentPlayer.board.current;
-    this.domBoardCurrentPlayer.innerHTML = "";
-
-    currentPlayerBoard.forEach((row, rowIndex) => {
+    playerBoard.forEach((row, rowIndex) => {
       const divRowElem = document.createElement("div");
       divRowElem.classList =`row`;
-      this.domBoardCurrentPlayer.appendChild(divRowElem);
+      domBoard.appendChild(divRowElem);
 
       row.forEach((field, fieldIndex) => {
-        const divElem = this.createField(this.game.currentPlayer, field, rowIndex, fieldIndex);
+        const divElem = this.createField(player, field, rowIndex, fieldIndex);
         divRowElem.appendChild(divElem);
       });
     })

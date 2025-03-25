@@ -9,18 +9,32 @@ export class GameController {
 
   async playGame() {
     this.game.initializePlayers("Player1", "Computer");
-    this.domController.displayGameStatus();
+    this.displayGameStatus();
     await this.placeFleetLoop();
     this.gameLoop();
   }
 
   async placeFleetLoop() {
     for(let i = 0; i <= 1; i++ ) {
-      this.domController.displayGameStatus();
+      this.displayGameStatus();
       await this.placeFleetForCurrentPlayer();
-      this.domController.displayCurrentPlayerBoard();
+      this.displayCurrentPlayerBoard();
       await this.game.switchCurrentPlayer();
     }
+  }
+
+  displayGameStatus() {
+    this.domController.displayPlayerNames();
+    this.displayCurrentPlayerBoard();
+    this.displayCurrentOpponentBoard();
+  }
+
+  displayCurrentPlayerBoard(){
+    this.domController.displayCurrentBoard(this.game.currentPlayer.board.current, this.domController.domBoardCurrentPlayer, this.game.currentPlayer);
+  }
+
+  displayCurrentOpponentBoard() {
+    this.domController.displayCurrentBoard(this.game.currentOpponent().board.current, this.domController.domBoardOpponentPlayer, this.game.currentOpponent());
   }
 
   async placeFleetForCurrentPlayer() {
@@ -45,7 +59,7 @@ export class GameController {
   }
 
   async playRound() {
-    this.domController.displayGameStatus();
+    this.displayGameStatus();
 
     const message = this.game.getMoveRequestMessage()
     this.domController.displayMoveRequest(message);
@@ -53,11 +67,9 @@ export class GameController {
     const coordinate = await this.getValidCoordinate();
     
     this.game.currentOpponent().board.receiveAttack(coordinate);
-    this.domController.displayCurrentOpponentBoard(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
+    this.displayCurrentOpponentBoard(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
     await this.game.switchCurrentPlayer();
   }
-
-  
 
   async getValidCoordinate() {
     let coordinate;
