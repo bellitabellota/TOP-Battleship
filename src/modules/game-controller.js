@@ -33,14 +33,14 @@ export class GameController {
     const player = this.game.currentPlayer;
     const isBoardOfCurrentPlayer = player === this.game.currentPlayer ? true : false;
 
-    this.domController.displayCurrentBoard(this.game.currentPlayer.board.current, this.domController.domBoardCurrentPlayer, isBoardOfCurrentPlayer);
+    this.domController.displayCurrentBoard(player.board.current, isBoardOfCurrentPlayer);
   }
 
   displayCurrentOpponentBoard() {
     const player = this.game.currentOpponent();
     const isBoardOfCurrentPlayer = player === this.game.currentPlayer ? true : false;
 
-    this.domController.displayCurrentBoard(this.game.currentOpponent().board.current, this.domController.domBoardOpponentPlayer, isBoardOfCurrentPlayer);
+    this.domController.displayCurrentBoard(player.board.current, isBoardOfCurrentPlayer);
   }
 
   async placeFleetForCurrentPlayer() {

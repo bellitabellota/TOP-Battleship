@@ -48,7 +48,8 @@ export class DOMController {
       return [xCoordinate, yCoordinate];
     }
 
-  displayCurrentBoard(playerBoard, domBoard, isBoardOfCurrentPlayer) {
+  displayCurrentBoard(playerBoard, isBoardOfCurrentPlayer) {
+    let domBoard = isBoardOfCurrentPlayer ? this.domBoardCurrentPlayer : this.domBoardOpponentPlayer;
     domBoard.innerHTML = "";
 
     playerBoard.forEach((row, rowIndex) => {
