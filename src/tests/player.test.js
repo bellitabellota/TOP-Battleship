@@ -1,6 +1,6 @@
 import { Player, HumanPlayer, ComputerPlayer } from "../modules/player.js";
 import { Gameboard } from "../modules/gameboard.js";
-import { getRandomInteger } from "../modules/random-integer.js";
+import { getRandomInteger } from "../modules/utils/random-integer.js";
 
 jest.mock("../modules/gameboard.js");
 
@@ -72,7 +72,7 @@ describe("computerPlayer.getCoordinateChoice()", () => {
   test("should return an array of integers between 0 and 9", async() => {
     const computerPlayer = new ComputerPlayer("Computer Test Player");
     const spyGetRandomInteger = jest.spyOn(
-      require("../modules/random-integer.js"), "getRandomInteger").mockReturnValueOnce(0).mockReturnValueOnce(1);
+      require("../modules/utils/random-integer.js"), "getRandomInteger").mockReturnValueOnce(0).mockReturnValueOnce(1);
    
       const promise = computerPlayer.getCoordinateChoice();
       jest.runAllTimers();

@@ -1,5 +1,5 @@
 import { Ship } from "./ship.js";
-import { getRandomInteger } from "./random-integer.js";
+import { getRandomInteger } from "./utils/random-integer.js";
 
 export class Gameboard {
   constructor() {

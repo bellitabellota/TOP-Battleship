@@ -1,5 +1,5 @@
 import { Gameboard } from "./gameboard.js";
-import { getRandomInteger } from "./random-integer.js";
+import { getRandomInteger } from "./utils/random-integer.js";
 
 export class Player {
   constructor(name) {
