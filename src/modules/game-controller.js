@@ -8,11 +8,8 @@ export class GameController {
 
   async playGame() {
     this.game.initializePlayers("Player1", "Computer");
-
     this.domController.displayGameStatus();
-
     await this.placeFleetLoop();
-
     this.gameLoop();
   }
 
