@@ -41,7 +41,9 @@ export class GameController {
 
   async playRound() {
     this.domController.displayGameStatus();
-    this.domController.displayMoveRequest();
+    
+    const message = this.game.getMoveRequestMessage()
+    this.domController.displayMoveRequest(message);
     
     const coordinate = await this.getValidCoordinate();
     
@@ -49,6 +51,8 @@ export class GameController {
     this.domController.displayCurrentOpponentBoard(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
     await this.game.switchCurrentPlayer();
   }
+
+  
 
   async getValidCoordinate() {
     let coordinate;

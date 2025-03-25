@@ -31,14 +31,8 @@ export class DOMController {
       });
     }
 
-    displayMoveRequest() {
-      const playerName = this.game.currentPlayer.name;
-
-      if (playerName === "Computer") {
-        this.playerInfoElem.innerHTML = "The Computer is making his move."
-      } else {
-        this.playerInfoElem.innerHTML = `${playerName}, it is time to attack your enemy. Click on a field of your choice.`;
-      }  
+    displayMoveRequest(message) {
+      this.playerInfoElem.innerHTML = message;
     }
 
     addEventListenersToOpponentBoard() {  

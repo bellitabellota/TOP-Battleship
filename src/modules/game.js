@@ -53,4 +53,11 @@ export class Game {
   isOver() {
     return this.currentPlayer.board.allShipsSunk();
   }
+
+  getMoveRequestMessage() {
+    const playerName = this.currentPlayer.name;
+    return playerName === "Computer"
+      ? "The Computer is making his move."
+      : `${playerName}, it is time to attack your enemy. Click on a field of your choice.`;
+  }
 }
