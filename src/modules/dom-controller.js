@@ -1,6 +1,5 @@
 export class DOMController {
-  constructor(game) {
-    this.game = game;
+  constructor() {
     this.domBoardCurrentPlayer = document.querySelector(".js-current-player-board");
     this.domBoardOpponentPlayer = document.querySelector(".js-opponent-board");
     this.currentPlayerNameElem = document.querySelector(".js-current-player-name");

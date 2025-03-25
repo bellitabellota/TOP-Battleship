@@ -5,6 +5,6 @@ import { GameController } from "./modules/game-controller.js";
 import { Ship } from "./modules/ship.js";
 
 const game = new Game();
-const domController = new DOMController(game);
+const domController = new DOMController();
 const gameController = new GameController(game, domController);
 
