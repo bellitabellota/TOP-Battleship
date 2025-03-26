@@ -63,6 +63,6 @@ export class Game {
 
   getWinMessage() {
     const winner = this.currentOpponent();
-    `GAME OVER! ${winner.name} won the game.`;
+    return `GAME OVER! ${winner.name} won the game.`;
   }
 }
