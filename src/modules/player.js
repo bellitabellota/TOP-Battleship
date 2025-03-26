@@ -36,7 +36,7 @@ export class ComputerPlayer extends Player {
         const yCoordinate = getRandomInteger();
   
       resolve([xCoordinate, yCoordinate]);
-      }, 500);
+      }, 1000);
     }); 
   }
 
