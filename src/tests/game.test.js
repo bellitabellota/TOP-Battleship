@@ -166,3 +166,18 @@ describe("game.getWinMessage()", () => {
     expect(result).toBe("GAME OVER! Bob won the game.");
   });
 });
+
+describe("game.currentPlayerIsComputerPlayer()", () => {
+  test("should return true when currentPlayer is an instance of ComputerPlayer", () => {
+    const game = new Game();
+    game.currentPlayer = new ComputerPlayer();
+    expect(game.currentPlayerIsComputerPlayer()).toBe(true);
+  });
+
+  test("should return false when currentPlayer is not an instance of ComputerPlayer", () => {
+    const game = new Game();
+    game.currentPlayer = new HumanPlayer();
+
+    expect(game.currentPlayerIsComputerPlayer()).toBe(false);
+  });
+});

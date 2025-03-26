@@ -67,8 +67,6 @@ export class Game {
   }
 
   currentPlayerIsComputerPlayer() {
-    console.log(this.currentPlayer);
-    console.log(this.currentPlayer instanceof ComputerPlayer);
     return this.currentPlayer instanceof ComputerPlayer;
   }
 }
