@@ -10,25 +10,25 @@
 
     <p>It's time to set sail and defend the kingdom's borders.</p>
 
-    <div class="js-player-information"></div>
+    <p class="js-player-information player-information"></p>
 
-    <div class="game-container">
-      <div class="current-player-game-container">
-        <p class="js-current-player-name"></p>
-        <div class="js-current-player-board"></div>
+    <div>
+      <div class="game-container">
+        <div class="current-player-game-container">
+          <p class="js-current-player-name player-name"></p>
+          <div class="js-current-player-board"></div>
+        </div>
+        <div class="opponent-game-container">
+          <p class="js-opponent-name player-name"></p>
+          <div class="js-opponent-board"></div>
+        </div>
       </div>
-      <div class="opponent-game-container">
-        <p class="js-opponent-name"></p>
-        <div class="js-opponent-board"></div>
-      </div>
-
+      
       <div class="addendum">
         <div class="js-place-fleet-button-container"></div>
-        <div>
-          <p>Tokens</p>
-          <p> missed shot = m</p>
-          <p> ship = &#x1F6A2 </p>
-          <p> hit ship = &#x1F3CA </p>
+        <div class="token-container">
+          <p class="token-title">Tokens</p>
+          <p> Missed Shot = <span class="token">O</span></p><p>Ship = <span class="token">&#x1F6A2</span></p><p> Hit Ship = <span class="token">&#x1F3CA</span> </p>
         </div>
       </div>
     </div>

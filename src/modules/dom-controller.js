@@ -14,7 +14,7 @@ export class DOMController {
 
     addPlaceFleetButton() {
       return new Promise((resolve) => { 
-        this.placeFleetBtnContainer.innerHTML = `<button class="js-place-fleet-button">Place Fleet</button>`;
+        this.placeFleetBtnContainer.innerHTML = `<button class="js-place-fleet-button place-fleet-button">Place Fleet</button>`;
 
         const placeFleetButton = document.querySelector(".js-place-fleet-button");
         
@@ -77,7 +77,7 @@ export class DOMController {
 
   getFieldContent(field, isBoardOfCurrentPlayer){
     if (field === "m") {
-      return field;
+      return `O`;
     } else if (field === "h") {
       return `\u{1F3CA}`;
     } else if(isBoardOfCurrentPlayer) {

@@ -1,14 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  background-color: rgb(214, 245, 235);
+  background-image: url("noah-rosenfield-H4fnu6BLzEo-unsplash.jpg");
+  background-size: cover ;
+  background-position: center;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.js-player-information {
+h1 {
+  font-family: "Playfair Display", serif;
+	font-weight: 600;
+  margin-top: 3.5rem;
+  margin-bottom: 1.5rem;
+  font-size: calc(1.5rem + 1.5vw);
+}
+
+p {
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin-top: 0.5vw;
+  margin-bottom: 0.5vw;
+  font-size: calc(0.75rem + 0.5vw);
+}
+
+.player-information {
   height: 30px;
   padding: 10px 15px;
+  color: rgb(28, 119, 115);
+  font-weight: 600;
   display: flex;
   justify-items: center;
   align-items: center;
@@ -16,38 +42,33 @@ body {
 }
 
 .game-container {
-  margin-left: auto;
-  margin-right: auto;
-  width: fit-content;
-  padding: 10px 15px;
-
+  padding-top: 1.5vw;
+  padding-bottom: 1vw;
   display: flex;
   gap: 5vw;
 }
 
-.current-player-game-container,
-.opponent-game-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 22vw;
-  height: 24vw;
+.player-name {
+  font-weight: 600;
+  text-align: center;
 }
 
 .field {
-  width: 2vw;
-  height: 2vw;
-  border: 1px solid white;
-  background-color: rgb(224, 223, 223);
+  width: calc(1.25rem + 1vw);
+  height: calc(1.25rem + 1vw);
+  border: 1px solid rgb(12,92,108);
+  background-color: rgb(218, 224, 224);
 
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.75vw;
+  font-size: calc(0.675rem + 1vw);
 }
 
 .opponent-field:hover {
-  background-color: rgb(97, 97, 97);
+  background-color: rgb(28, 119, 115);
+  cursor: pointer;
+  transition: 0.15s;
 }
 
 .row {
@@ -55,5 +76,47 @@ body {
 }
 
 .addendum {
-  background-color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 5vw;
+  padding: 0.5vw;
+}
+
+.place-fleet-button {
+  font-size: calc(0.75rem + 0.5vw);
+  border-radius: 20px;
+  padding: 10px 15px;
+  border: none;
+  background-color: rgb(28, 105, 121);
+  color:rgb(218, 224, 224);
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.808);
+  transition: 0.15s;
+}
+
+.place-fleet-button:hover {
+  background-color: rgb(0, 88, 105);
+  box-shadow: 3px 3px 2px rgb(0, 0, 0);
+}
+
+.token-container {
+  background-color: rgba(255, 255, 255, 0.774);
+  padding: 0.75vw 0.75vw;
+  text-align: center;
+  border-radius: 25px;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.452);
+}
+
+.token-container > p {
+  font-size: calc(0.75rem + 0.25vw);
+  margin: 0;
+  
+}
+
+.token-container .token {
+  font-size: calc(0.75rem + 0.5vw);
+}
+
+.token-title {
+  font-weight: 600;
 }
