@@ -65,4 +65,10 @@ export class Game {
     const winner = this.currentOpponent();
     return `GAME OVER! ${winner.name} won the game.`;
   }
+
+  currentPlayerIsComputerPlayer() {
+    console.log(this.currentPlayer);
+    console.log(this.currentPlayer instanceof ComputerPlayer);
+    return this.currentPlayer instanceof ComputerPlayer;
+  }
 }

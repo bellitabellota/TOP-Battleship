@@ -47,7 +47,7 @@ export class DOMController {
       return [xCoordinate, yCoordinate];
     }
 
-  displayCurrentBoard(playerBoard, isBoardOfCurrentPlayer) {
+  displayCurrentBoard(playerBoard, isBoardOfCurrentPlayer, currentPlayerIsComputerPlayer) {
     let domBoard = isBoardOfCurrentPlayer ? this.domBoardCurrentPlayer : this.domBoardOpponentPlayer;
     domBoard.innerHTML = "";
 
@@ -57,17 +57,17 @@ export class DOMController {
       domBoard.appendChild(divRowElem);
 
       row.forEach((field, fieldIndex) => {
-        const divElem = this.createField(isBoardOfCurrentPlayer, field, rowIndex, fieldIndex);
+        const divElem = this.createField(field, rowIndex, fieldIndex, isBoardOfCurrentPlayer, currentPlayerIsComputerPlayer);
         divRowElem.appendChild(divElem);
       });
     })
   }
 
-  createField (isBoardOfCurrentPlayer, field, rowIndex, fieldIndex){
+  createField (field, rowIndex, fieldIndex, isBoardOfCurrentPlayer, currentPlayerIsComputerPlayer){
     const divElem = document.createElement("div");
 
     if (field !== null) {
-      divElem.innerHTML = this.getFieldContent(field, isBoardOfCurrentPlayer);
+      divElem.innerHTML = this.getFieldContent(field, isBoardOfCurrentPlayer, currentPlayerIsComputerPlayer);
     }        
 
     divElem.classList=`field js-field`;
@@ -75,12 +75,12 @@ export class DOMController {
     return divElem;
   };
 
-  getFieldContent(field, isBoardOfCurrentPlayer){
+  getFieldContent(field, isBoardOfCurrentPlayer, currentPlayerIsComputerPlayer){
     if (field === "m") {
       return `O`;
     } else if (field === "h") {
       return `\u{1F3CA}`;
-    } else if(isBoardOfCurrentPlayer) {
+    } else if(isBoardOfCurrentPlayer && !currentPlayerIsComputerPlayer) {
       return `\u{1F6A2}`;
     }  else {
       return "";

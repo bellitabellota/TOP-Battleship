@@ -29,8 +29,8 @@ export class GameController {
     this.displayCurrentBoard(this.game.currentOpponent().board.current, false);
   }
 
-  displayCurrentBoard(player, isBoardOfCurrentPlayer) {
-    this.domController.displayCurrentBoard(player, isBoardOfCurrentPlayer);
+  displayCurrentBoard(playerBoard, isBoardOfCurrentPlayer) {
+    this.domController.displayCurrentBoard(playerBoard, isBoardOfCurrentPlayer, this.game.currentPlayerIsComputerPlayer());
   }
 
   async placeFleetForCurrentPlayer() {
