@@ -226,3 +226,27 @@ describe("board.placeFleetOnBoard(fleet)", () => {
     expect(board.placeShip).toHaveBeenCalledWith([6, 8], fleet[1]);
   });
 });
+
+describe("board.removeFleetFromBoard()", () => {
+  test("should remove all ships from the board", () => {
+    const board = new Gameboard();
+    const ship1 = new Ship(3);
+    const ship2 = new Ship(2);
+    board.placeShip([[0, 0], [0, 1], [0, 2]], ship1);
+    board.placeShip([[1, 0], [1, 1]], ship2);
+
+    expect(board.placedShips.length).toBe(2);
+    expect(board.current.some(row => row.some(field => field !== null))).toBe(true);
+
+    board.removeFleetFromBoard();
+
+    board.current.forEach(row => {
+      row.forEach(field => {
+        expect(field).toBeNull();
+      });
+    });
+
+    expect(board.current.every(row => row.every(field => field === null))).toBe(true);
+    expect(board.placedShips.length).toBe(0);
+  });
+});

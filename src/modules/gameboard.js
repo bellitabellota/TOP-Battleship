@@ -51,6 +51,11 @@ export class Gameboard {
     });
   }
 
+  removeFleetFromBoard() {
+    this.current = this.current.map(row => row.map(() => null));
+    this.placedShips = [];
+  }
+
   getRandomValidCoordinates(ship) {
     let randomCoordinates;
 
