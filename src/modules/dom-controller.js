@@ -9,13 +9,17 @@ export class DOMController {
     this.twoPlayerButton = document.querySelector(".js-two-player-button");
     this.playWithComputerButton = document.querySelector(".js-play-with-computer-button");
     this.initializationScreen = document.querySelector(".js-initialize-screen");
+    this.containerOngoingGame = document.querySelector(".js-container-ongoing-game");
+    this.missionStatement = document.querySelector(".js-mission-statement");
   }
 
   addTwoPlayerEventListener(initializePlayers, playGame) {
     this.twoPlayerButton.addEventListener("click", ()=> {
       initializePlayers("Player1", "Player2");
       playGame();
-      this.initializationScreen.hidden = true;
+      this.initializationScreen.classList.add('hidden');
+      this.containerOngoingGame.hidden = false;
+      this.missionStatement.hidden = false;
     })
   }
 
@@ -23,7 +27,9 @@ export class DOMController {
     this.playWithComputerButton.addEventListener("click", ()=> {
       initializePlayers("Player1", "Computer");
       playGame();
-      this.initializationScreen.hidden = true;
+      this.initializationScreen.classList.add('hidden');
+      this.containerOngoingGame.hidden = false;
+      this.missionStatement.hidden = false;
     })
   }
 

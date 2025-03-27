@@ -25,6 +25,12 @@ body {
   background-image: url("noah-rosenfield-H4fnu6BLzEo-unsplash.jpg");
   background-size: cover;
   background-position: bottom;
+  transition: transform 3s ease, opacity 3s ease;
+}
+
+.initialize-screen.hidden {
+  transform: translateY(100%);
+  opacity: 0;
 }
 
 .player-mode {
