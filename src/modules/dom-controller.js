@@ -33,11 +33,11 @@ export class DOMController {
     })
   }
 
-  removePlaceFleetButton() {
+  removePlaceFleetControls() {
     this.controlsButtonContainer.innerHTML = "";
   }
 
-  addPlaceFleetButton(removeFleetFromBoard, placeFleetOnBoard, fleet, game) {
+  addPlaceFleetControls(removeFleetFromBoard, placeFleetOnBoard, fleet, game) {
     this.controlsButtonContainer.innerHTML = `
             <button class="js-place-fleet-button place-fleet-button">Place Fleet</button>
             <button class="js-proceed-button proceed-button">Proceed</button>`;
@@ -56,7 +56,7 @@ export class DOMController {
       const proceedButton = document.querySelector(".js-proceed-button");
   
       proceedButton.addEventListener("click", () => {
-        this.removePlaceFleetButton();
+        this.removePlaceFleetControls();
         resolve();
       });
     });

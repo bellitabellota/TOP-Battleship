@@ -58,7 +58,7 @@ export class GameController {
     const removeFleetFromBoard = this.game.currentPlayer.board.removeFleetFromBoard.bind(this.game.currentPlayer.board);
     const placeFleetOnBoard = this.game.currentPlayer.board.placeFleetOnBoard.bind(this.game.currentPlayer.board);
 
-    this.domController.addPlaceFleetButton(removeFleetFromBoard, placeFleetOnBoard, fleet, this.game);
+    this.domController.addPlaceFleetControls(removeFleetFromBoard, placeFleetOnBoard, fleet, this.game);
     await this.domController.addProceedButton();
     resolve();
   }
