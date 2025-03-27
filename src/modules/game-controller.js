@@ -21,6 +21,8 @@ export class GameController {
     await this.placeFleetForCurrentPlayer();
     await this.game.switchCurrentPlayer();
 
+    if(!this.game.currentPlayerIsComputerPlayer()) { this.displayGameStatus(); }
+
     await this.placeFleetForCurrentPlayer();
     await this.game.switchCurrentPlayer();
 
