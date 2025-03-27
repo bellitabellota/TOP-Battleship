@@ -5,6 +5,7 @@ export class Player {
   constructor(name) {
     this.name = name;
     this.board = new Gameboard();
+    this.shipsPlaced = false;
   }
 }
 
@@ -16,15 +17,6 @@ export class HumanPlayer extends Player {
 
       resolve(coordinate);
     }); 
-  }
-
-  makePlacement(fleet, placeFleetOnBoard, clickCallback, removeButtonCallback) {
-    return new Promise(async (resolve) => {
-      await clickCallback();
-      placeFleetOnBoard(fleet);
-      removeButtonCallback();
-      resolve();
-    });
   }
 }
 
@@ -38,12 +30,5 @@ export class ComputerPlayer extends Player {
       resolve([xCoordinate, yCoordinate]);
       }, 1000);
     }); 
-  }
-
-  makePlacement(fleet, placeFleetOnBoard) {
-    return new Promise(async (resolve) => {
-      placeFleetOnBoard(fleet);
-      resolve();
-    });
   }
 }
