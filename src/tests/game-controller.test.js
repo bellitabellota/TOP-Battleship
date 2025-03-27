@@ -1,11 +1,11 @@
 import { GameController } from "../modules/game-controller";
 
 describe("object initialization", () => {
-  test("invokes gameController.playRound()", () => {
-    const playGameMock = jest.fn();
-    GameController.prototype.playGame = playGameMock;
+  test("invokes gameController.initializePlayers()", () => {
+    const initializePlayersMock = jest.fn();
+    GameController.prototype.initializePlayers = initializePlayersMock;
     const gameController = new GameController("game", "domController");
-    expect(gameController.playGame).toHaveBeenCalled();
+    expect(gameController.initializePlayers).toHaveBeenCalled();
   })
 })
 
