@@ -10,18 +10,16 @@ export class GameController {
   async playGame() {
     this.game.initializePlayers("Player1", "Computer");
     this.displayGameStatus();
-    await this.placeFleetLoop();
+
+    await this.placeFleetForCurrentPlayer();
+    await this.game.switchCurrentPlayer();
+
+    await this.placeFleetForCurrentPlayer();
+    await this.game.switchCurrentPlayer();
+
     this.gameLoop();
   }
 
-  async placeFleetLoop() {
-    for(let i = 0; i <= 1; i++ ) {
-      this.displayGameStatus();
-      await this.placeFleetForCurrentPlayer();
-      this.displayCurrentBoard(this.game.currentPlayer.board.current, true);
-      await this.game.switchCurrentPlayer();
-    }
-  }
 
   displayGameStatus() {
     this.domController.displayPlayerNames(this.game.currentPlayer.name, this.game.currentOpponent().name);
@@ -30,16 +28,30 @@ export class GameController {
   }
 
   displayCurrentBoard(playerBoard, isBoardOfCurrentPlayer) {
-    this.domController.displayCurrentBoard(playerBoard, isBoardOfCurrentPlayer, this.game.currentPlayerIsComputerPlayer());
+    this.domController.displayCurrentDOMBoard(playerBoard, isBoardOfCurrentPlayer, this.game.currentPlayerIsComputerPlayer());
   }
 
-  async placeFleetForCurrentPlayer() {
-    const handlePlacementClick = this.domController.addPlaceFleetButton.bind(this.domController);
-    const fleet = createFleet();
-    const placeFleetOnBoard = this.game.currentPlayer.board.placeFleetOnBoard.bind(this.game.currentPlayer.board);
-    const removePlaceFleetButton = this.domController.removePlaceFleetButton.bind(this.domController);
+  placeFleetForCurrentPlayer() {
+    return new Promise((resolve) => {
+      if (this.game.currentPlayerIsComputerPlayer()) {
+        const fleet = createFleet();
+        this.game.currentPlayer.board.placeFleetOnBoard(fleet);
+        console.log("Computer placing")
+        resolve();
+      } else {
+        this.placeFleetHumanPlayer(resolve); 
+      }
+    });   
+  }
 
-    await this.game.currentPlayer.makePlacement(fleet, placeFleetOnBoard, handlePlacementClick, removePlaceFleetButton);
+  async placeFleetHumanPlayer(resolve)  {  
+    const fleet = createFleet();
+    const removeFleetFromBoard = this.game.currentPlayer.board.removeFleetFromBoard.bind(this.game.currentPlayer.board);
+    const placeFleetOnBoard = this.game.currentPlayer.board.placeFleetOnBoard.bind(this.game.currentPlayer.board);
+
+    this.domController.addPlaceFleetButton(removeFleetFromBoard, placeFleetOnBoard, fleet, this.game);
+    await this.domController.addProceedButton();
+    resolve();
   }
 
   async gameLoop() {

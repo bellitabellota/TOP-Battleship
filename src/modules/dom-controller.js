@@ -6,48 +6,61 @@ export class DOMController {
     this.currentOpponentNameElem = document.querySelector(".js-opponent-name");
     this.playerInfoElem = document.querySelector(".js-player-information");
     this.placeFleetBtnContainer = document.querySelector(".js-place-fleet-button-container");
-    }
+  }
 
-    removePlaceFleetButton() {
-      this.placeFleetBtnContainer.innerHTML = "";
-    }
+  removePlaceFleetButton() {
+    this.placeFleetBtnContainer.innerHTML = "";
+  }
 
-    addPlaceFleetButton() {
-      return new Promise((resolve) => { 
-        this.placeFleetBtnContainer.innerHTML = `<button class="js-place-fleet-button place-fleet-button">Place Fleet</button>`;
+  addPlaceFleetButton(removeFleetFromBoard, placeFleetOnBoard, fleet, game) {
+    this.placeFleetBtnContainer.innerHTML = `
+            <button class="js-place-fleet-button place-fleet-button">Place Fleet</button>
+            <button class="js-proceed-button proceed-button">Proceed</button>`;
 
-        const placeFleetButton = document.querySelector(".js-place-fleet-button");
-        
-        placeFleetButton.addEventListener("click", () => {
-          resolve();
+    const placeFleetButton = document.querySelector(".js-place-fleet-button");
+    
+    placeFleetButton.addEventListener("click", () => {
+      removeFleetFromBoard();
+      placeFleetOnBoard(fleet);
+      this.displayCurrentDOMBoard(game.currentPlayer.board.current, true, false);
+    });
+  }
+
+  addProceedButton() {
+    return new Promise((resolve) => {
+      const proceedButton = document.querySelector(".js-proceed-button");
+  
+      proceedButton.addEventListener("click", () => {
+        this.removePlaceFleetButton();
+        resolve();
+      });
+    });
+  }
+
+  displayMoveRequest(message) {
+    this.playerInfoElem.innerHTML = message;
+  }
+
+  addEventListenersToOpponentBoard() {  
+    return new Promise((resolve) => {
+      const opponentFieldElements = this.domBoardOpponentPlayer.querySelectorAll(".js-field");
+      
+      opponentFieldElements.forEach((field) => {
+        field.classList.add("opponent-field");
+        field.addEventListener("click", () => {
+          resolve(this.getClickedCoordinate(field));
         });
-      });
-    }
+      })
+    });
+  }
 
-    displayMoveRequest(message) {
-      this.playerInfoElem.innerHTML = message;
-    }
+  getClickedCoordinate(field) {
+    const xCoordinate = Number(field.dataset.index.split("")[0]);
+    const yCoordinate = Number(field.dataset.index.split("")[1]);
+    return [xCoordinate, yCoordinate];
+  }
 
-    addEventListenersToOpponentBoard() {  
-      return new Promise((resolve) => {
-        const opponentFieldElements = this.domBoardOpponentPlayer.querySelectorAll(".js-field");
-        
-        opponentFieldElements.forEach((field) => {
-          field.classList.add("opponent-field");
-          field.addEventListener("click", () => {
-            resolve(this.getClickedCoordinate(field));
-          });
-        })
-      });
-    }
-
-    getClickedCoordinate(field) {
-      const xCoordinate = Number(field.dataset.index.split("")[0]);
-      const yCoordinate = Number(field.dataset.index.split("")[1]);
-      return [xCoordinate, yCoordinate];
-    }
-
-  displayCurrentBoard(playerBoard, isBoardOfCurrentPlayer, currentPlayerIsComputerPlayer) {
+  displayCurrentDOMBoard(playerBoard, isBoardOfCurrentPlayer, currentPlayerIsComputerPlayer) {
     let domBoard = isBoardOfCurrentPlayer ? this.domBoardCurrentPlayer : this.domBoardOpponentPlayer;
     domBoard.innerHTML = "";
 
