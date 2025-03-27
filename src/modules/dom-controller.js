@@ -5,15 +5,15 @@ export class DOMController {
     this.currentPlayerNameElem = document.querySelector(".js-current-player-name");
     this.currentOpponentNameElem = document.querySelector(".js-opponent-name");
     this.playerInfoElem = document.querySelector(".js-player-information");
-    this.placeFleetBtnContainer = document.querySelector(".js-place-fleet-button-container");
+    this.controlsButtonContainer = document.querySelector(".js-controls-button-container");
   }
 
   removePlaceFleetButton() {
-    this.placeFleetBtnContainer.innerHTML = "";
+    this.controlsButtonContainer.innerHTML = "";
   }
 
   addPlaceFleetButton(removeFleetFromBoard, placeFleetOnBoard, fleet, game) {
-    this.placeFleetBtnContainer.innerHTML = `
+    this.controlsButtonContainer.innerHTML = `
             <button class="js-place-fleet-button place-fleet-button">Place Fleet</button>
             <button class="js-proceed-button proceed-button">Proceed</button>`;
 
