@@ -4,11 +4,18 @@ export class GameController {
   constructor(game, domController) {
     this.game = game;
     this.domController = domController;
-    this.playGame();
+    this.initializePlayers();
+  }
+
+  initializePlayers() {
+    const initializePlayers = this.game.initializePlayers.bind(this.game);
+    const playGame = this.playGame.bind(this);
+
+    this.domController.addTwoPlayerEventListener(initializePlayers, playGame);
+    this.domController.addPlayWithComputerEventListener(initializePlayers, playGame);
   }
 
   async playGame() {
-    this.game.initializePlayers("Player1", "Computer");
     this.displayGameStatus();
 
     await this.placeFleetForCurrentPlayer();

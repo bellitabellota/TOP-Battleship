@@ -6,6 +6,25 @@ export class DOMController {
     this.currentOpponentNameElem = document.querySelector(".js-opponent-name");
     this.playerInfoElem = document.querySelector(".js-player-information");
     this.controlsButtonContainer = document.querySelector(".js-controls-button-container");
+    this.twoPlayerButton = document.querySelector(".js-two-player-button");
+    this.playWithComputerButton = document.querySelector(".js-play-with-computer-button");
+    this.initializationScreen = document.querySelector(".js-initialize-screen");
+  }
+
+  addTwoPlayerEventListener(initializePlayers, playGame) {
+    this.twoPlayerButton.addEventListener("click", ()=> {
+      initializePlayers("Player1", "Player2");
+      playGame();
+      this.initializationScreen.hidden = true;
+    })
+  }
+
+  addPlayWithComputerEventListener(initializePlayers, playGame) {
+    this.playWithComputerButton.addEventListener("click", ()=> {
+      initializePlayers("Player1", "Computer");
+      playGame();
+      this.initializationScreen.hidden = true;
+    })
   }
 
   removePlaceFleetButton() {
