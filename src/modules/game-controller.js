@@ -79,7 +79,7 @@ export class GameController {
     this.displayGameStatus();
 
     const message = this.game.getMoveRequestMessage()
-    this.domController.displayMoveRequest(message);
+    this.domController.displayInformationForPlayer(message);
     
     const coordinate = await this.getValidCoordinate();
     

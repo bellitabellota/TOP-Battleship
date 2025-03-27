@@ -91,7 +91,7 @@ export class DOMController {
     });
   }
 
-  displayMoveRequest(message) {
+  displayInformationForPlayer(message) {
     this.playerInfoElem.innerHTML = message;
   }
 
