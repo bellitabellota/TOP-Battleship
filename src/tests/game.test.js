@@ -195,3 +195,13 @@ describe("game.isTwoPlayerGame()", () => {
     expect(game.isTwoPlayerGame()).toBe(false);
   });
 });
+
+describe("game.getPlacementPromptMessage()", () => {
+  const game = new Game();
+
+  test("returns the correct message", () => {
+    game.currentPlayer = { name: "Player1" };
+    const result = game.getPlacementPromptMessage();
+    expect(result).toBe("Player1, click 'Place Fleet' to place your ships and confirm with 'Proceed'.");
+  });
+});

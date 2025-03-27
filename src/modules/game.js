@@ -73,4 +73,9 @@ export class Game {
   isTwoPlayerGame() {
     return this.players[1] instanceof HumanPlayer;
   }
+
+  getPlacementPromptMessage() {
+    const playerName = this.currentPlayer.name;
+    return `${playerName}, click 'Place Fleet' to place your ships and confirm with 'Proceed'.`;
+  }
 }

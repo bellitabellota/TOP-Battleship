@@ -18,15 +18,24 @@ export class GameController {
   async playGame() {
     this.displayGameStatus();
 
+    this.displayPlacementPrompt();
     await this.placeFleetForCurrentPlayer();
     await this.game.switchCurrentPlayer();
 
-    if(!this.game.currentPlayerIsComputerPlayer()) { this.displayGameStatus(); }
+    if(this.game.isTwoPlayerGame()) { 
+      this.displayPlacementPrompt();
+      this.displayGameStatus(); 
+    }
 
     await this.placeFleetForCurrentPlayer();
     await this.game.switchCurrentPlayer();
 
     this.gameLoop();
+  }
+
+  displayPlacementPrompt() {
+    const message = this.game.getPlacementPromptMessage();
+    this.domController.displayInformationForPlayer(message);
   }
 
 
