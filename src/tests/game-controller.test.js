@@ -31,6 +31,8 @@ describe("gameController.getValidCoordinate()", () => {
     const domControllerMock = { addEventListenersToOpponentBoard: jest.fn() }
     const gameMock = { 
       isChoiceValid: jest.fn(),
+      currentOpponent: jest.fn().mockReturnValueOnce({name: "Computer"}),
+      players: [{name: "Player1"}, {name: "Computer"}],
       currentPlayer: { getCoordinateChoice: jest.fn().mockResolvedValue([3, 4]) }
     }
 
