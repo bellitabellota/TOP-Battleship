@@ -181,3 +181,17 @@ describe("game.currentPlayerIsComputerPlayer()", () => {
     expect(game.currentPlayerIsComputerPlayer()).toBe(false);
   });
 });
+
+describe("game.isTwoPlayerGame()", () => {
+  test("should return true if the second player is a HumanPlayer", () => {
+    const game = new Game();
+    game.initializePlayers("Player1", "Player2");
+    expect(game.isTwoPlayerGame()).toBe(true);
+  });
+
+  test("should return false if the second player is a ComputerPlayer", () => {
+    const game = new Game();
+    game.initializePlayers("Player1", "Computer");
+    expect(game.isTwoPlayerGame()).toBe(false);
+  });
+});

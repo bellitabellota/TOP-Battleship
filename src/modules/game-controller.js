@@ -85,6 +85,9 @@ export class GameController {
     
     this.game.currentOpponent().board.receiveAttack(coordinate);
     this.displayCurrentBoard(this.game.currentOpponent().board.current, false); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
+
+    if(this.game.isTwoPlayerGame()) { this.domController.displaySwitchScreen();  }
+
     await this.game.switchCurrentPlayer();
   }
 

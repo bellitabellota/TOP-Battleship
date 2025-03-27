@@ -13,6 +13,35 @@ export class DOMController {
     this.missionStatement = document.querySelector(".js-mission-statement");
   }
 
+  displaySwitchScreen() {
+    const switchScreen = document.createElement('div');
+    switchScreen.classList.add('switch-screen');
+  
+    switchScreen.innerHTML = `
+      <p>Switching turns in:</p>
+      <span class="countdown">3</span>
+    `;
+  
+    document.body.appendChild(switchScreen);
+  
+    let countdownValue = 3;
+    const intervalId = setInterval(() => {
+      countdownValue -= 1;
+      const countdown = switchScreen.querySelector('.countdown');
+      countdown.textContent = countdownValue;
+  
+      if (countdownValue === 0) {
+        clearInterval(intervalId);
+  
+        switchScreen.classList.add('fade-out');
+  
+        switchScreen.addEventListener('transitionend', () => {
+          document.body.removeChild(switchScreen);
+        });
+      }
+    }, 1000);
+  }
+
   addTwoPlayerEventListener(initializePlayers, playGame) {
     this.twoPlayerButton.addEventListener("click", ()=> {
       initializePlayers("Player1", "Player2");

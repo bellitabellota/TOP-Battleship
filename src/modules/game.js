@@ -69,4 +69,8 @@ export class Game {
   currentPlayerIsComputerPlayer() {
     return this.currentPlayer instanceof ComputerPlayer;
   }
+
+  isTwoPlayerGame() {
+    return this.players[1] instanceof HumanPlayer;
+  }
 }
