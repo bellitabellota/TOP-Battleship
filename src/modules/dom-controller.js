@@ -159,8 +159,4 @@ export class DOMController {
     this.player1NameElem.innerHTML = player1Name;
     this.player2NameElem.innerHTML = player2Name;
   }
-
-  displayWinMessage(message){
-    this.playerInfoElem.innerHTML = message;
-  }
 }

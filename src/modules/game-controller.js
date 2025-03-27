@@ -81,8 +81,8 @@ export class GameController {
   }
 
   announceWinner() {
-    const message = this.game.getWinMessage();
-    this.domController.displayWinMessage(message);
+    const winMessage = this.game.getWinMessage();
+    this.domController.displayInformationForPlayer(winMessage);
   }
 
   async playRound() {
