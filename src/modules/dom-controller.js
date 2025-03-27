@@ -80,7 +80,7 @@ export class DOMController {
     });
   }
 
-  addProceedButton() {
+  addProceedButtonEventListener() {
     return new Promise((resolve) => {
       const proceedButton = document.querySelector(".js-proceed-button");
   

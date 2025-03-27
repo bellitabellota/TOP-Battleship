@@ -69,7 +69,7 @@ export class GameController {
     const playerNumber = this.game.currentPlayer === this.game.players[0] ? 1 : 2;
 
     this.domController.addPlaceFleetControls(removeFleetFromBoard, playerNumber, placeFleetOnBoard, fleet, this.game);
-    await this.domController.addProceedButton();
+    await this.domController.addProceedButtonEventListener();
     resolve();
   }
 
