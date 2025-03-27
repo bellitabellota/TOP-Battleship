@@ -103,10 +103,11 @@ export class GameController {
   }
 
   async getValidCoordinate() {
+    const handleBoardClick = this.domController.addEventListenersToOpponentBoard.bind(this.domController);
+    const opponentPlayerNumber = this.game.currentOpponent() === this.game.players[0] ? 1 : 2;
+
     let coordinate;
     do {
-      const handleBoardClick = this.domController.addEventListenersToOpponentBoard.bind(this.domController);
-      const opponentPlayerNumber = this.game.currentOpponent() === this.game.players[0] ? 1 : 2;
       coordinate = await this.game.currentPlayer.getCoordinateChoice(handleBoardClick, opponentPlayerNumber);
     } while (!this.game.isChoiceValid(coordinate));
     return coordinate;
