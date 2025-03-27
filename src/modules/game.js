@@ -70,6 +70,10 @@ export class Game {
     return this.currentPlayer instanceof ComputerPlayer;
   }
 
+  isCurrentPlayer(playerNumber) {
+    return this.players[playerNumber - 1] === this.currentPlayer;
+  }
+
   isTwoPlayerGame() {
     return this.players[1] instanceof HumanPlayer;
   }

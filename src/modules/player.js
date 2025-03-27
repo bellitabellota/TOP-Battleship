@@ -10,10 +10,10 @@ export class Player {
 }
 
 export class HumanPlayer extends Player {
-  getCoordinateChoice(cb) {
+  getCoordinateChoice(cb, opponentPlayerNumber) {
     return new Promise(async (resolve) => {
       
-      const coordinate = await cb();
+      const coordinate = await cb(opponentPlayerNumber);
 
       resolve(coordinate);
     }); 

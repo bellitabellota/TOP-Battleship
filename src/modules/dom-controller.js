@@ -1,9 +1,9 @@
 export class DOMController {
   constructor() {
-    this.domBoardCurrentPlayer = document.querySelector(".js-current-player-board");
-    this.domBoardOpponentPlayer = document.querySelector(".js-opponent-board");
-    this.currentPlayerNameElem = document.querySelector(".js-current-player-name");
-    this.currentOpponentNameElem = document.querySelector(".js-opponent-name");
+    this.domBoardPlayer1 = document.querySelector(".js-player1-board");
+    this.domBoardPlayer2 = document.querySelector(".js-player2-board");
+    this.player1NameElem = document.querySelector(".js-player1-name");
+    this.player2NameElem = document.querySelector(".js-player2-name");
     this.playerInfoElem = document.querySelector(".js-player-information");
     this.controlsButtonContainer = document.querySelector(".js-controls-button-container");
     this.twoPlayerButton = document.querySelector(".js-two-player-button");
@@ -66,7 +66,7 @@ export class DOMController {
     this.controlsButtonContainer.innerHTML = "";
   }
 
-  addPlaceFleetControls(removeFleetFromBoard, placeFleetOnBoard, fleet, game) {
+  addPlaceFleetControls(removeFleetFromBoard, playerNumber, placeFleetOnBoard, fleet, game) {
     this.controlsButtonContainer.innerHTML = `
             <button class="js-place-fleet-button place-fleet-button">Place Fleet</button>
             <button class="js-proceed-button proceed-button">Proceed</button>`;
@@ -76,7 +76,7 @@ export class DOMController {
     placeFleetButton.addEventListener("click", () => {
       removeFleetFromBoard();
       placeFleetOnBoard(fleet);
-      this.displayCurrentDOMBoard(game.currentPlayer.board.current, true, false);
+      this.displayCurrentDOMBoard(game.currentPlayer.board.current, playerNumber, true);
     });
   }
 
@@ -95,9 +95,10 @@ export class DOMController {
     this.playerInfoElem.innerHTML = message;
   }
 
-  addEventListenersToOpponentBoard() {  
+  addEventListenersToOpponentBoard(opponentPlayerNumber) {  
+    const domBoard = opponentPlayerNumber === 1 ? this.domBoardPlayer1 : this.domBoardPlayer2;
     return new Promise((resolve) => {
-      const opponentFieldElements = this.domBoardOpponentPlayer.querySelectorAll(".js-field");
+      const opponentFieldElements = domBoard.querySelectorAll(".js-field");
       
       opponentFieldElements.forEach((field) => {
         field.classList.add("opponent-field");
@@ -114,8 +115,8 @@ export class DOMController {
     return [xCoordinate, yCoordinate];
   }
 
-  displayCurrentDOMBoard(playerBoard, isBoardOfCurrentPlayer, currentPlayerIsComputerPlayer) {
-    let domBoard = isBoardOfCurrentPlayer ? this.domBoardCurrentPlayer : this.domBoardOpponentPlayer;
+  displayCurrentDOMBoard(playerBoard, playerNumber, showShip) {
+    let domBoard = playerNumber === 1 ? this.domBoardPlayer1 : this.domBoardPlayer2;
     domBoard.innerHTML = "";
 
     playerBoard.forEach((row, rowIndex) => {
@@ -124,17 +125,17 @@ export class DOMController {
       domBoard.appendChild(divRowElem);
 
       row.forEach((field, fieldIndex) => {
-        const divElem = this.createField(field, rowIndex, fieldIndex, isBoardOfCurrentPlayer, currentPlayerIsComputerPlayer);
+        const divElem = this.createField(field, rowIndex, fieldIndex, showShip);
         divRowElem.appendChild(divElem);
       });
     })
   }
 
-  createField (field, rowIndex, fieldIndex, isBoardOfCurrentPlayer, currentPlayerIsComputerPlayer){
+  createField (field, rowIndex, fieldIndex, showShip){
     const divElem = document.createElement("div");
 
     if (field !== null) {
-      divElem.innerHTML = this.getFieldContent(field, isBoardOfCurrentPlayer, currentPlayerIsComputerPlayer);
+      divElem.innerHTML = this.getFieldContent(field, showShip);
     }        
 
     divElem.classList=`field js-field`;
@@ -142,21 +143,21 @@ export class DOMController {
     return divElem;
   };
 
-  getFieldContent(field, isBoardOfCurrentPlayer, currentPlayerIsComputerPlayer){
+  getFieldContent(field, showShip){
     if (field === "m") {
       return `O`;
     } else if (field === "h") {
       return `\u{1F3CA}`;
-    } else if(isBoardOfCurrentPlayer && !currentPlayerIsComputerPlayer) {
+    } else if(showShip) {
       return `\u{1F6A2}`;
     }  else {
       return "";
     }      
   }
 
-  displayPlayerNames(currentPlayerName, opponentPlayerName) {
-    this.currentPlayerNameElem.innerHTML = currentPlayerName;
-    this.currentOpponentNameElem.innerHTML = opponentPlayerName;
+  displayPlayerNames(player1Name, player2Name) {
+    this.player1NameElem.innerHTML = player1Name;
+    this.player2NameElem.innerHTML = player2Name;
   }
 
   displayWinMessage(message){

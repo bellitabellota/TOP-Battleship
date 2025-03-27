@@ -16,6 +16,7 @@ export class GameController {
   }
 
   async playGame() {
+    this.domController.displayPlayerNames(this.game.players[0].name, this.game.players[1].name);
     this.displayGameStatus();
 
     this.displayPlacementPrompt();
@@ -39,14 +40,14 @@ export class GameController {
   }
 
 
-  displayGameStatus() {
-    this.domController.displayPlayerNames(this.game.currentPlayer.name, this.game.currentOpponent().name);
-    this.displayCurrentBoard(this.game.currentPlayer.board.current, true);
-    this.displayCurrentBoard(this.game.currentOpponent().board.current, false);
-  }
-
-  displayCurrentBoard(playerBoard, isBoardOfCurrentPlayer) {
-    this.domController.displayCurrentDOMBoard(playerBoard, isBoardOfCurrentPlayer, this.game.currentPlayerIsComputerPlayer());
+  displayGameStatus() { 
+    if (this.game.isTwoPlayerGame()) {
+      this.domController.displayCurrentDOMBoard(this.game.players[0].board.current, 1, this.game.isCurrentPlayer(1));
+      this.domController.displayCurrentDOMBoard(this.game.players[1].board.current, 2, this.game.isCurrentPlayer(2));
+    } else {
+      this.domController.displayCurrentDOMBoard(this.game.players[0].board.current, 1, true);
+      this.domController.displayCurrentDOMBoard(this.game.players[1].board.current, 2, false);
+    }
   }
 
   placeFleetForCurrentPlayer() {
@@ -54,7 +55,6 @@ export class GameController {
       if (this.game.currentPlayerIsComputerPlayer()) {
         const fleet = createFleet();
         this.game.currentPlayer.board.placeFleetOnBoard(fleet);
-        console.log("Computer placing")
         resolve();
       } else {
         this.placeFleetHumanPlayer(resolve); 
@@ -66,8 +66,9 @@ export class GameController {
     const fleet = createFleet();
     const removeFleetFromBoard = this.game.currentPlayer.board.removeFleetFromBoard.bind(this.game.currentPlayer.board);
     const placeFleetOnBoard = this.game.currentPlayer.board.placeFleetOnBoard.bind(this.game.currentPlayer.board);
+    const playerNumber = this.game.currentPlayer === this.game.players[0] ? 1 : 2;
 
-    this.domController.addPlaceFleetControls(removeFleetFromBoard, placeFleetOnBoard, fleet, this.game);
+    this.domController.addPlaceFleetControls(removeFleetFromBoard, playerNumber, placeFleetOnBoard, fleet, this.game);
     await this.domController.addProceedButton();
     resolve();
   }
@@ -93,7 +94,8 @@ export class GameController {
     const coordinate = await this.getValidCoordinate();
     
     this.game.currentOpponent().board.receiveAttack(coordinate);
-    this.displayCurrentBoard(this.game.currentOpponent().board.current, false); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
+
+    this.displayGameStatus(); /* this call also removes the EventListeners as the updated board gets re-created on the DOM */
 
     if(this.game.isTwoPlayerGame()) { this.domController.displaySwitchScreen();  }
 
@@ -104,7 +106,8 @@ export class GameController {
     let coordinate;
     do {
       const handleBoardClick = this.domController.addEventListenersToOpponentBoard.bind(this.domController);
-      coordinate = await this.game.currentPlayer.getCoordinateChoice(handleBoardClick);
+      const opponentPlayerNumber = this.game.currentOpponent() === this.game.players[0] ? 1 : 2;
+      coordinate = await this.game.currentPlayer.getCoordinateChoice(handleBoardClick, opponentPlayerNumber);
     } while (!this.game.isChoiceValid(coordinate));
     return coordinate;
   }

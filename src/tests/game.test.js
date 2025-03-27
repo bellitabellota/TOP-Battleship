@@ -205,3 +205,20 @@ describe("game.getPlacementPromptMessage()", () => {
     expect(result).toBe("Player1, click 'Place Fleet' to place your ships and confirm with 'Proceed'.");
   });
 });
+
+describe("game.isCurrentPlayer(playerNumber)", () => {
+  const game = new Game();
+
+  beforeEach(() => {
+    game.players = [new HumanPlayer("Player 1"), new ComputerPlayer("Player 2")];
+    game.setInitialCurrentPlayer(0);
+  });
+
+  test("returns true when the specified player number matches the current player", () => {
+    expect(game.isCurrentPlayer(1)).toBe(true);
+  });
+
+  test("returns false when the specified player number does not match the current player", () => {
+    expect(game.isCurrentPlayer(2)).toBe(false);
+  });
+});
