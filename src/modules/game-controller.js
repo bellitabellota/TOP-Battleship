@@ -4,10 +4,10 @@ export class GameController {
   constructor(game, domController) {
     this.game = game;
     this.domController = domController;
-    this.initializePlayers();
+    this.startGame();
   }
 
-  initializePlayers() {
+  startGame() {
     const initializePlayers = this.game.initializePlayers.bind(this.game);
     const playGame = this.playGame.bind(this);
 
