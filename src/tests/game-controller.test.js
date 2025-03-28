@@ -9,8 +9,7 @@ describe("object initialization", () => {
   })
 })
 
-describe("gameController.startGame", ()=> {
-
+describe("gameController.startGame()", ()=> {
   const initializePlayersMock = jest.fn();
   const gameMock = { initializePlayers: initializePlayersMock }
   const initializePlayersBoundMock = gameMock.initializePlayers.bind(gameMock);
@@ -27,8 +26,6 @@ describe("gameController.startGame", ()=> {
   jest.spyOn(gameController.playGame, "bind").mockReturnValueOnce(playGameBoundMock);
   gameController.startGame();
   
-
-
   test("it sends initializePlayers and playGame to domController.addTwoPlayerEventListener()", () => {
     expect(gameController.domController.addTwoPlayerEventListener).toHaveBeenCalledWith(initializePlayersBoundMock, playGameBoundMock);
   })
@@ -38,7 +35,32 @@ describe("gameController.startGame", ()=> {
   })
 })
 
+describe("gameController.playGame()", () => {
+  const gameMock = {
+    isTwoPlayerGame: jest.fn(),
+    switchCurrentPlayer: jest.fn(),
+    players: [ { name: 'Player1' }, { name: 'Player2' } ]
+  };
 
+  const domControllerMock = {
+    displayPlayerNames: jest.fn(),
+  };
+  
+  jest.spyOn(GameController.prototype, "startGame").mockImplementationOnce(jest.fn());
+  const gameController = new GameController(gameMock, domControllerMock);
+  gameController.displayGameStatus = jest.fn();
+  gameController.displayPlacementPrompt = jest.fn();
+  gameController.placeFleetForCurrentPlayer = jest.fn();
+  gameController.gameLoop = jest.fn();
+    
+  test("calls 'outgoing' command methods", async () => {
+    await gameController.playGame();
+
+    expect(domControllerMock.displayPlayerNames).toHaveBeenCalledWith('Player1', 'Player2');
+    expect(gameMock.switchCurrentPlayer).toHaveBeenCalledTimes(2);
+    expect(gameMock.isTwoPlayerGame).toHaveBeenCalledTimes(1);
+  })
+})
 
 describe("gameController.gameLoop()", () => {
   test("the loop stops when the condition is met", async () => {
