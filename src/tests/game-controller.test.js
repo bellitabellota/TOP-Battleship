@@ -1,5 +1,4 @@
 import { GameController } from "../modules/game-controller";
-import { createFleet } from "../modules/utils/create-fleet.js";
 
 describe("object initialization", () => {
   test("invokes gameController.startGame()", () => {
@@ -168,6 +167,59 @@ describe("gameController.placeFleetForCurrentPlayer()", () => {
     // while the following does not unambiguously check that gameController.placeFleetHumanPlayer was invoked with resolve as a parameter, this is at least an approximation
     expect(typeof gameController.placeFleetHumanPlayer.mock.calls[0][0]).toBe("function");
     expect(promise).toBeInstanceOf(Promise);
+  });
+})
+
+describe("gameController.placeFleetHumanPlayer(resolve)", () => {
+  jest.spyOn(require("../modules/utils/create-fleet.js"), "createFleet").mockReturnValueOnce(["fleet"]);
+
+  const removeFleetFromBoardMock = jest.fn();
+  const placeFleetOnBoardMock = jest.fn();
+  const currentPlayer = {
+    board: {
+      removeFleetFromBoard: removeFleetFromBoardMock,
+      placeFleetOnBoard: placeFleetOnBoardMock
+    }
+  };
+
+  const gameMock = {
+    players: [currentPlayer, "Player2"],  
+    currentPlayer: currentPlayer
+  }
+
+  const removeFleetFromBoardBoundMock = removeFleetFromBoardMock.bind(gameMock);
+  jest.spyOn(gameMock.currentPlayer.board.removeFleetFromBoard, "bind").mockReturnValueOnce(removeFleetFromBoardBoundMock);
+
+  const placeFleetOnBoardBoundMock = placeFleetOnBoardMock.bind(gameMock);
+  jest.spyOn(gameMock.currentPlayer.board.placeFleetOnBoard, "bind").mockReturnValueOnce(placeFleetOnBoardBoundMock);
+
+  const domControllerMock = { 
+    addPlaceFleetControls: jest.fn(),
+    addProceedButtonEventListener: jest.fn(),  
+  }
+
+  jest.spyOn(GameController.prototype, "startGame").mockImplementationOnce(jest.fn());
+  const gameController = new GameController(gameMock, domControllerMock)
+  const resolveMock = jest.fn();
+   
+  test("calls this.domController.addPlaceFleetControls with the correct arguments", async () => {
+    await gameController.placeFleetHumanPlayer(resolveMock);
+
+    expect(domControllerMock.addPlaceFleetControls.mock.calls[0][0]).toBe(removeFleetFromBoardBoundMock);
+    expect(domControllerMock.addPlaceFleetControls.mock.calls[0][1]).toBe(1);
+    expect(domControllerMock.addPlaceFleetControls.mock.calls[0][2]).toBe(placeFleetOnBoardBoundMock);
+    expect(domControllerMock.addPlaceFleetControls.mock.calls[0][3]).toEqual(["fleet"]);
+    expect(domControllerMock.addPlaceFleetControls.mock.calls[0][4]).toBe(gameMock);
+  });
+
+  test("calls this.domController.addProceedButtonEventListener()", async () => {
+    await gameController.placeFleetHumanPlayer(resolveMock);
+    expect(domControllerMock.addProceedButtonEventListener).toHaveBeenCalled();
+  });
+
+  test("calls the resolve function it receives as argument", async () => {
+    await gameController.placeFleetHumanPlayer(resolveMock);
+    expect(resolveMock).toHaveBeenCalled();
   });
 })
 
