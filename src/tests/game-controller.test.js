@@ -79,6 +79,51 @@ describe("game.displayPlacementPrompt()", () => {
   })
 })
 
+describe("game.displayGameStatus()", () => {
+  test("calls this.domController.displayCurrentDOMBoard() with the correct parameters for Two Player Game", () => {
+    const gameMock = { 
+      isTwoPlayerGame: jest.fn(), 
+      isCurrentPlayer: jest.fn().mockReturnValueOnce(true).mockReturnValueOnce(false),
+      players: [
+        { board: { current: "mockHumanBoard1" } },
+        { board: { current: "mockHumanBoard2" } }
+      ]
+    }
+  
+    const domControllerMock = { displayCurrentDOMBoard: jest.fn() }
+  
+    jest.spyOn(GameController.prototype, "startGame").mockImplementationOnce(jest.fn());
+    const gameController = new GameController(gameMock, domControllerMock);
+    gameMock.isTwoPlayerGame.mockReturnValueOnce(true);
+    gameController.displayGameStatus();
+
+    expect(domControllerMock.displayCurrentDOMBoard).toHaveBeenCalledWith("mockHumanBoard1", 1, true);
+    expect(domControllerMock.displayCurrentDOMBoard).toHaveBeenCalledWith("mockHumanBoard2", 2, false);
+  })
+
+  test("calls this.domController.displayCurrentDOMBoard() with the correct parameters for 'Play With Computer' mode'", () => {
+    const gameMock = { 
+      isTwoPlayerGame: jest.fn(), 
+      isCurrentPlayer: jest.fn().mockReturnValueOnce(true).mockReturnValueOnce(false),
+      players: [
+        { board: { current: "mockBoard1Human" } },
+        { board: { current: "mockBoard2Computer" } }
+      ]
+    }
+  
+    const domControllerMock = { displayCurrentDOMBoard: jest.fn() }
+  
+    jest.spyOn(GameController.prototype, "startGame").mockImplementationOnce(jest.fn());
+    const gameController = new GameController(gameMock, domControllerMock);
+
+    gameMock.isTwoPlayerGame.mockReturnValueOnce(false);
+    gameController.displayGameStatus();
+
+    expect(domControllerMock.displayCurrentDOMBoard).toHaveBeenCalledWith("mockBoard1Human", 1, true);
+    expect(domControllerMock.displayCurrentDOMBoard).toHaveBeenCalledWith("mockBoard2Computer", 2, false);
+  })
+})
+
 describe("gameController.gameLoop()", () => {
   test("the loop stops when the condition is met", async () => {
     const mockGame = { isOver: jest.fn().mockReturnValueOnce(false).mockReturnValueOnce(false).mockReturnValueOnce(true) };
