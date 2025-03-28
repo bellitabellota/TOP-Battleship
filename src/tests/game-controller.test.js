@@ -240,6 +240,24 @@ describe("gameController.gameLoop()", () => {
   });
 })
 
+describe("gameController.announceWinner()", () => {
+  const gameMock = { getWinMessage: jest.fn().mockReturnValueOnce("GAME OVER")}
+  const domControllerMock = { displayInformationForPlayer: jest.fn() }
+
+  jest.spyOn(GameController.prototype, "startGame").mockImplementationOnce(jest.fn());
+  const gameController = new GameController(gameMock, domControllerMock);
+  gameController.announceWinner();
+
+  test("calls this.game.getWinMessage()", () => {
+    expect(gameMock.getWinMessage).toHaveBeenCalled();
+  })
+
+  test("calls this.domController.displayInformationForPlayer(message)", () => {
+    expect(domControllerMock.displayInformationForPlayer).toHaveBeenCalledWith("GAME OVER");
+  })
+})
+
+
 describe("gameController.getValidCoordinate()", () => {
   test("the loop stops when the condition is met and returns the coordinate", async () => {
     const domControllerMock = { addEventListenersToOpponentBoard: jest.fn() }
