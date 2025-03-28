@@ -10,7 +10,6 @@ export class GameController {
   startGame() {
     const initializePlayers = this.game.initializePlayers.bind(this.game);
     const playGame = this.playGame.bind(this);
-
     this.domController.addTwoPlayerEventListener(initializePlayers, playGame);
     this.domController.addPlayWithComputerEventListener(initializePlayers, playGame);
   }

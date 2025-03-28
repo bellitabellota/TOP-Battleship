@@ -9,6 +9,37 @@ describe("object initialization", () => {
   })
 })
 
+describe("gameController.startGame", ()=> {
+
+  const initializePlayersMock = jest.fn();
+  const gameMock = { initializePlayers: initializePlayersMock }
+  const initializePlayersBoundMock = gameMock.initializePlayers.bind(gameMock);
+  jest.spyOn(gameMock.initializePlayers, "bind").mockReturnValueOnce(initializePlayersBoundMock);
+
+  const domControllerMock = { 
+    addTwoPlayerEventListener: jest.fn(),
+    addPlayWithComputerEventListener: jest.fn(),  
+  }
+  
+  jest.spyOn(GameController.prototype, "startGame").mockImplementationOnce(jest.fn()); //avoids invoking startGame during object initialization
+  const gameController = new GameController(gameMock, domControllerMock)
+  const playGameBoundMock = gameController.playGame.bind(gameController);
+  jest.spyOn(gameController.playGame, "bind").mockReturnValueOnce(playGameBoundMock);
+  gameController.startGame();
+  
+
+
+  test("it sends initializePlayers and playGame to domController.addTwoPlayerEventListener()", () => {
+    expect(gameController.domController.addTwoPlayerEventListener).toHaveBeenCalledWith(initializePlayersBoundMock, playGameBoundMock);
+  })
+
+  test("it sends initializePlayers and playGame to domController.addPlayWithComputerEventListener()", () => {
+    expect(gameController.domController.addPlayWithComputerEventListener).toHaveBeenCalledWith(initializePlayersBoundMock, playGameBoundMock);
+  })
+})
+
+
+
 describe("gameController.gameLoop()", () => {
   test("the loop stops when the condition is met", async () => {
     const mockGame = { isOver: jest.fn().mockReturnValueOnce(false).mockReturnValueOnce(false).mockReturnValueOnce(true) };
