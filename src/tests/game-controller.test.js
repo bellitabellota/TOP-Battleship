@@ -257,6 +257,43 @@ describe("gameController.announceWinner()", () => {
   })
 })
 
+describe("gameController.playRound()", () => {
+  const gameMock = {
+    getMoveRequestMessage: jest.fn(),
+    currentOpponent: jest.fn(),
+    players: [ { name: 'Player1' }, { board: { receiveAttack: jest.fn()} } ],
+    isTwoPlayerGame: jest.fn(),
+    switchCurrentPlayer: jest.fn()
+  };
+
+  gameMock.getMoveRequestMessage.mockReturnValueOnce("Next");
+  gameMock.currentOpponent.mockReturnValueOnce(gameMock.players[1]);
+  gameMock.isTwoPlayerGame.mockReturnValueOnce(true);
+
+  const domControllerMock = {
+    displayInformationForPlayer: jest.fn(),
+    displaySwitchScreen: jest.fn()
+  };
+  
+  jest.spyOn(GameController.prototype, "startGame").mockImplementationOnce(jest.fn());
+  const gameController = new GameController(gameMock, domControllerMock);
+  gameController.displayGameStatus = jest.fn();
+  gameController.getValidCoordinate = jest.fn().mockReturnValueOnce([3, 4]);
+  test("calls 'outgoing' command methods with correct arguments if applicable", async() => {
+    await gameController.playRound();
+
+ 
+
+    expect(gameMock.getMoveRequestMessage).toHaveBeenCalled();
+    expect(domControllerMock.displayInformationForPlayer).toHaveBeenCalledWith("Next");
+    expect(gameMock.currentOpponent).toHaveBeenCalled();
+    expect(gameMock.players[1].board.receiveAttack).toHaveBeenCalledWith([3, 4]);
+    expect(gameMock.isTwoPlayerGame).toHaveBeenCalled();
+    expect(domControllerMock.displaySwitchScreen).toHaveBeenCalled();
+    expect(gameMock.switchCurrentPlayer).toHaveBeenCalled();
+  })
+})
+
 
 describe("gameController.getValidCoordinate()", () => {
   test("the loop stops when the condition is met and returns the coordinate", async () => {
