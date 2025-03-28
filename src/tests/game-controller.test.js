@@ -62,6 +62,23 @@ describe("gameController.playGame()", () => {
   })
 })
 
+describe("game.displayPlacementPrompt()", () => {
+  const gameMock = { getPlacementPromptMessage: jest.fn().mockReturnValueOnce("Placement Prompt Message")}
+  const domControllerMock = { displayInformationForPlayer: jest.fn() }
+
+  jest.spyOn(GameController.prototype, "startGame").mockImplementationOnce(jest.fn());
+  const gameController = new GameController(gameMock, domControllerMock);
+  gameController.displayPlacementPrompt();
+
+  test("calls this.game.getPlacementPromptMessage()", () => {
+    expect(gameMock.getPlacementPromptMessage).toHaveBeenCalled();
+  })
+
+  test("calls this.domController.displayInformationForPlayer(message)", () => {
+    expect(domControllerMock.displayInformationForPlayer).toHaveBeenCalledWith("Placement Prompt Message");
+  })
+})
+
 describe("gameController.gameLoop()", () => {
   test("the loop stops when the condition is met", async () => {
     const mockGame = { isOver: jest.fn().mockReturnValueOnce(false).mockReturnValueOnce(false).mockReturnValueOnce(true) };
