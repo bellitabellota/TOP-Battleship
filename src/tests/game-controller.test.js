@@ -1,4 +1,5 @@
 import { GameController } from "../modules/game-controller";
+import { createFleet } from "../modules/utils/create-fleet.js";
 
 describe("object initialization", () => {
   test("invokes gameController.startGame()", () => {
@@ -62,7 +63,7 @@ describe("gameController.playGame()", () => {
   })
 })
 
-describe("game.displayPlacementPrompt()", () => {
+describe("gameController.displayPlacementPrompt()", () => {
   const gameMock = { getPlacementPromptMessage: jest.fn().mockReturnValueOnce("Placement Prompt Message")}
   const domControllerMock = { displayInformationForPlayer: jest.fn() }
 
@@ -79,7 +80,7 @@ describe("game.displayPlacementPrompt()", () => {
   })
 })
 
-describe("game.displayGameStatus()", () => {
+describe("gameController.displayGameStatus()", () => {
   test("calls this.domController.displayCurrentDOMBoard() with the correct parameters for Two Player Game", () => {
     const gameMock = { 
       isTwoPlayerGame: jest.fn(), 
@@ -122,6 +123,52 @@ describe("game.displayGameStatus()", () => {
     expect(domControllerMock.displayCurrentDOMBoard).toHaveBeenCalledWith("mockBoard1Human", 1, true);
     expect(domControllerMock.displayCurrentDOMBoard).toHaveBeenCalledWith("mockBoard2Computer", 2, false);
   })
+})
+
+describe("gameController.placeFleetForCurrentPlayer()", () => {
+  test("calls createFleet(), this.game.currentPlayer.board.placeFleetOnBoard(fleet) and resolve() when currentPlayerIsComputerPlayer", async() => {
+    const gameMock = {  
+      currentPlayerIsComputerPlayer: jest.fn().mockReturnValueOnce(true),
+      currentPlayer: {
+        board: {
+          placeFleetOnBoard: jest.fn()
+        }
+      }
+    }
+
+    jest.spyOn(GameController.prototype, "startGame").mockImplementationOnce(jest.fn());
+    const gameController = new GameController(gameMock, "domControllerMock");
+    const spyCreateFleet =  jest.spyOn(require("../modules/utils/create-fleet.js"), "createFleet").mockReturnValueOnce(["fleet"]);
+
+    let promise = gameController.placeFleetForCurrentPlayer();
+
+
+    expect(spyCreateFleet).toHaveBeenCalled();
+    expect(gameMock.currentPlayer.board.placeFleetOnBoard).toHaveBeenCalledWith(["fleet"]);
+    await expect(promise).resolves.toBeUndefined();
+  });
+
+  test("this.placeFleetHumanPlayer(resolve) when currentPlayerIsComputerPlayer is false", async() => {
+    const gameMock = {  
+      currentPlayerIsComputerPlayer: jest.fn().mockReturnValueOnce(false),
+      currentPlayer: {
+        board: {
+          placeFleetOnBoard: jest.fn()
+        }
+      }
+    }
+
+    jest.spyOn(GameController.prototype, "startGame").mockImplementationOnce(jest.fn());
+    const gameController = new GameController(gameMock, "domControllerMock");
+    gameController.placeFleetHumanPlayer = jest.fn();
+
+    let promise = gameController.placeFleetForCurrentPlayer();
+
+    expect(gameController.placeFleetHumanPlayer).toHaveBeenCalled();
+    // while the following does not unambiguously check that gameController.placeFleetHumanPlayer was invoked with resolve as a parameter, this is at least an approximation
+    expect(typeof gameController.placeFleetHumanPlayer.mock.calls[0][0]).toBe("function");
+    expect(promise).toBeInstanceOf(Promise);
+  });
 })
 
 describe("gameController.gameLoop()", () => {
