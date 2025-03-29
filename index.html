@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Battleship</title>
+  <script defer src="main.js"></script></head>
+  <body>
+    <div class="initialize-screen js-initialize-screen">
+      <div class="player-mode">
+        <button class="js-two-player-button">2 Player Game</button>
+        <button class="js-play-with-computer-button">Play With Computer</button>
+      </div>
+    </div>
+    <h1>Battleship</h1>
+
+    <p class="js-mission-statement" hidden>It's time to set sail and defend the kingdom's borders.</p>
+
+    <p class="js-player-information player-information"></p>
+
+    <div class="js-container-ongoing-game" hidden>
+      <div class="game-container">
+        <div>
+          <p class="js-player1-name player-name"></p>
+          <div class="js-player1-board"></div>
+        </div>
+        <div>
+          <p class="js-player2-name player-name"></p>
+          <div class="js-player2-board"></div>
+        </div>
+      </div>
+      
+      <div class="addendum">
+        <div class="js-controls-button-container controls-button-container"></div>
+        <div>
+          <div class="token-container">
+            <p class="token-title">Tokens</p>
+            <p> Missed Shot = <span class="token">O</span></p><p>Ship = <span class="token">&#x1F6A2</span></p><p> Hit Ship = <span class="token">&#x1F3CA</span> </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
