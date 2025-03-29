@@ -296,21 +296,27 @@ describe("gameController.playRound()", () => {
 
 
 describe("gameController.getValidCoordinate()", () => {
-  test("the loop stops when the condition is met and returns the coordinate", async () => {
+  test("'outgoing' command methods are called, the loop stops when the condition is met and it returns the coordinate", async () => {
     const domControllerMock = { addEventListenersToOpponentBoard: jest.fn() }
+    jest.spyOn(domControllerMock.addEventListenersToOpponentBoard, "bind").mockReturnValue(domControllerMock.addEventListenersToOpponentBoard);
+
     const gameMock = { 
       isChoiceValid: jest.fn(),
-      currentOpponent: jest.fn().mockReturnValueOnce({name: "Computer"}),
+      currentOpponent: jest.fn().mockReturnValue({name: "Computer"}),
       players: [{name: "Player1"}, {name: "Computer"}],
-      currentPlayer: { getCoordinateChoice: jest.fn().mockResolvedValue([3, 4]) }
+      currentPlayer: { getCoordinateChoice: jest.fn().mockReturnValue([3, 4]) }
     }
 
     gameMock.isChoiceValid.mockReturnValueOnce(false).mockReturnValueOnce(true)
     const gameController = new GameController(gameMock, domControllerMock);
     const returnValue = await gameController.getValidCoordinate();
 
-    expect(gameMock.currentPlayer.getCoordinateChoice).toHaveBeenCalledTimes(2);
-    expect(gameMock.isChoiceValid).toHaveBeenCalledTimes(2);
+    expect(gameMock.currentPlayer.getCoordinateChoice).toHaveBeenNthCalledWith(1, domControllerMock.addEventListenersToOpponentBoard, 2);
+    expect(gameMock.currentPlayer.getCoordinateChoice).toHaveBeenNthCalledWith(2, domControllerMock.addEventListenersToOpponentBoard, 2);
+
+    expect(gameMock.isChoiceValid).toHaveBeenNthCalledWith(1, [3, 4]);
+    expect(gameMock.isChoiceValid).toHaveBeenNthCalledWith(2, [3, 4]);
+
     expect(returnValue).toEqual([3, 4]);
   });
 })
